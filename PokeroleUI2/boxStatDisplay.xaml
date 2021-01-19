@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.boxStatDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             xmlns:uc="clr-namespace:PokeroleUI2.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             >
+    
+    <Grid x:Name="MainGrid"  Background="Beige" Visibility="Visible" >
+        <Grid.RowDefinitions>
+            <!--HeaderRow-->
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="2.2*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" Margin="0,0,0,0" VerticalAlignment="Center">
+            <Run Text="Height:" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
+            <Run Text="0" x:Name="textHeight" FontFamily="{StaticResource Bliss}"/>
+        </TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="0,0,0,0" VerticalAlignment="Center">
+            <Run Text="Weight:" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
+            <Run Text="0" x:Name="textWeight" FontFamily="{StaticResource Bliss}"/>
+        </TextBlock>
+
+        <uc:PokemonBanner Grid.ColumnSpan="5" x:Name="controlBanner"/>
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
+            <TextBlock>
+                <Run Text="Attribute Points:" FontFamily="{DynamicResource SquareFont}"/>
+                <Run x:Name = "textAttributePoints" Text="0" FontFamily="{DynamicResource Bliss}"/>
+            </TextBlock>
+            <uc:StatDots  x:Name="STRDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="DEXDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="VITDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="SPEDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="INSDots" DotHeight = "11"/>
+
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="3" Margin="5,5,5,5" Grid.Row="1" x:Name="SocialDotPanel">
+            <TextBlock>
+                <Run Text="Social Attribute Points:"/>
+                <Run x:Name = "textSocialPoints" Text="0"/>
+            </TextBlock>
+            <uc:StatDots x:Name="TOUDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="COODots" DotHeight = "11"/>
+            <uc:StatDots x:Name="BEADots" DotHeight = "11"/>
+            <uc:StatDots x:Name="CLEDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="CUTDots" DotHeight = "11"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="4" Margin="5,5,5,5" Grid.Row="1" Grid.RowSpan="7" x:Name="SkillDotPanel">
+            <TextBlock>
+                <Run Text="Skill Points:"/>
+                <Run x:Name = "textSkillPoints" Text="0"/>
+            </TextBlock>
+            <uc:StatDots x:Name="BRAWLDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="CHANNDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="CLASHDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="EVADEDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="ALERTDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="ATHLEDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="NATURDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="STEALDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="ALLURDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="ETIQUDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="INTIMDots" DotHeight = "11"/>
+            <uc:StatDots x:Name="PERFODots" DotHeight = "11"/>
+        </StackPanel>
+        <uc:StatDots x:Name="LOYALDots" DotHeight = "11" Grid.Row="2" Grid.Column="2" Height="11" Margin="5,5,5,5" VerticalAlignment="Top"/>
+        <uc:StatDots x:Name="HAPPYDots" DotHeight = "11" Grid.Row="2" Grid.Column="3" Height="11" Margin="5,5,5,5" VerticalAlignment="Top"/>
+        <uc:RankControl x:Name="rankControl" Grid.Column="3" Grid.Row="3" Margin="0,0,0,0" Height="30"/>
+        <uc:SimpleStatSliderControl x:Name="hpControl" Grid.Column="2" Grid.Row="3" Margin="0,0,0,0" statTitle="HP" Height="30"/>
+        <uc:SimpleStatSliderControl x:Name="willControl" Grid.Column="2" Grid.Row="4" Margin="0,0,0,0" statTitle="Will" Height="30"/>
+        <uc:TextFieldControl x:Name="NatureControl" Grid.Column="0" Grid.Row="3" Margin="0,0,0,0"  Height="30"/>
+        <uc:TextFieldControl x:Name="ConfidenceControl" Grid.Column="0" Grid.Row="4" Margin="0,0,0,0"  Height="30"/>
+        <uc:TextFieldControl x:Name="ItemControl" Grid.Column="1" Grid.Row="3" Margin="0,0,0,0"  Height="30"/>
+        <uc:TextFieldControl x:Name="AccessoryControl" Grid.Column="1" Grid.Row="4" Margin="0,0,0,0"  Height="30"/>
+        <uc:TextFieldControl x:Name="RibbonsControl" Grid.Column="1" Grid.Row="5" Margin="0,0,0,0"  Height="30"/>
+        <uc:TextFieldControl x:Name="StatusControl" Grid.Column="0" Grid.Row="5" Margin="0,0,0,0"  Height="30"/>
+        <Image x:Name="ImageDisplay" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
+
+
+
+
+
+
+
+
+    </Grid>
+</UserControl>

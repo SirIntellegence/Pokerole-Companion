@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PokeroleUI2">
+    <!--MAIN DATA PANEL DIMENSIONS-->
+    <!--MAIN DATA CONTAINER-->
+
+    <!--FONTS-->
+    <Style x:Key="Bliss18" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/fonts/Blissful Thinking.otf #blissfulthinking"/>
+        <Setter Property="Foreground" Value="#3c3c3b"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="4,4,4,4"/>
+    </Style>
+
+    <FontFamily x:Key="SquareFont">/fonts/Square.ttf #squarefont</FontFamily>
+    <FontFamily x:Key="Bliss">/fonts/Blissful Thinking.otf #blissfulthinking</FontFamily>
+    
+    
+    <!--Colours-->
+    <SolidColorBrush x:Key="Col_Fairy" Color="#e8add5" />
+    <SolidColorBrush x:Key="Col_Electric" Color="#fcc962" />
+    <SolidColorBrush x:Key="Col_Dark" Color="#6b5c65" />
+    <SolidColorBrush x:Key="Col_Ice" Color="#58cde3" />
+    <SolidColorBrush x:Key="Col_Psychic" Color="#f381b3" />
+    <SolidColorBrush x:Key="Col_Water" Color="#1773b9" />
+    <SolidColorBrush x:Key="Col_Dragon" Color="#6c50a8" />
+    <SolidColorBrush x:Key="Col_Ground" Color="#ceb278" />
+    <SolidColorBrush x:Key="Col_Fighting" Color="#a45f60" />
+    <SolidColorBrush x:Key="Col_Fire" Color="#f2675f" />
+    <SolidColorBrush x:Key="Col_Grass" Color="#7cc87d" />
+    <SolidColorBrush x:Key="Col_Normal" Color="#a6a59e" />
+    <SolidColorBrush x:Key="Col_Bug" Color="#a0b858" />
+    <SolidColorBrush x:Key="Col_Flying" Color="#94a8da" />
+    <SolidColorBrush x:Key="Col_Ghost" Color="#5c67b3" />
+    <SolidColorBrush x:Key="Col_Poison" Color="#a964ad" />
+    <SolidColorBrush x:Key="Col_Rock" Color="#a9956e" />
+    <SolidColorBrush x:Key="Col_Steel" Color="#a4aabf" />
+
+    <SolidColorBrush x:Key="Col_Type2" Color="#a9956e" />
+    <SolidColorBrush x:Key="Col_Type1" Color="#a4aabf" />
+    <SolidColorBrush x:Key="Col_MoveType" Color="#a4aabf" />
+
+
+    <SolidColorBrush x:Key="Col_Offwhite" Color="#e2e2e2" />
+    <SolidColorBrush x:Key="Col_Lightgray" Color="#d0d0d0" />
+    <SolidColorBrush x:Key="Col_Midgray" Color="#a8a7a7" />
+    <SolidColorBrush x:Key="Col_Darkgray" Color="#878786" />
+    <SolidColorBrush x:Key="Col_LightBlack" Color="#3c3c3b" />
+    <SolidColorBrush x:Key="Col_White" Color="#ffffff" />
+
+    <SolidColorBrush x:Key="Col_StatsBackRed" Color="#e55035" />
+    <SolidColorBrush x:Key="Col_StatsBackRedMedium" Color="#c74b34" />
+    <SolidColorBrush x:Key="Col_StatsBackRedDark" Color="#b24631" />
+    <SolidColorBrush x:Key="Col_Attributes" Color="#00b2c2" />
+    <SolidColorBrush x:Key="Col_AttributesTough" Color="#f6e593" />
+    <SolidColorBrush x:Key="Col_AttributesCool" Color="#f9ad8e" />
+    <SolidColorBrush x:Key="Col_AttributesBeauty" Color="#afc5df" />
+    <SolidColorBrush x:Key="Col_AttributesCute" Color="#f7b2c5" />
+    <SolidColorBrush x:Key="Col_AttributesClever" Color="#aed495" />
+
+
+
+
+
+
+
+
+
+</ResourceDictionary>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.RankControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="200">
+    <Grid Width="Auto" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="11"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="11"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock VerticalAlignment="Top" Margin="0,0,0,0" FontSize="12" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="SquareFont" Text="Rank"  Grid.Column="0" TextAlignment="Center"/>
+        <Button VerticalAlignment="Bottom" x:Name="decreaseButton" Content="-" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="1" Click="DecreaseButton_Click"/>
+        <Button VerticalAlignment="Bottom" x:Name="increaseButton" Content="+" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="3" Click="IncreaseButton_Click"/>
+        <TextBlock VerticalAlignment="Bottom" x:Name="textRank" Margin="0,0,0,0" FontSize="10" TextWrapping="Wrap" Text="TextBlock"  Grid.Column="2" TextAlignment="Center"/>
+
+    </Grid>
+</UserControl>
