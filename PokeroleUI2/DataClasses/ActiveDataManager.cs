@@ -12,6 +12,20 @@ namespace PokeroleUI2
     public class ActiveDataManager : INotifyPropertyChanged
     {
 
+        private TrainerList _activeList;
+        public TrainerList ActiveList
+        {
+            get { return _activeList; }
+            set
+            {
+                if (_activeList != value)
+                {
+                    _activeList = value;
+                    OnTrainerListChanged();
+                }
+            }
+        }
+
         private TrainerData _activeTrainer;
         public TrainerData ActiveTrainer
         {
@@ -161,6 +175,11 @@ namespace PokeroleUI2
         private void OnTrainerChanged([CallerMemberName] string propertyName = null)
         {
             TrainerChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler TrainerListChanged;
+        private void OnTrainerListChanged([CallerMemberName] string propertyName = null)
+        {
+            TrainerListChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public event PropertyChangedEventHandler BoxChanged;
         private void OnBoxChanged([CallerMemberName] string propertyName = null)

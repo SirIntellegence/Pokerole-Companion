@@ -33,15 +33,12 @@
 
         <!---Header-->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="{Binding trainerData.displayBrush, Mode=OneWay}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
 
-            <local:TextFieldContentBlock Tag="Name" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="200" HorizontalAlignment="Left" Margin="12,0,0,0" >
+            <local:TextFieldContentBlock Tag="Name" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="300" HorizontalAlignment="Left" Margin="12,0,0,0" >
                 <TextBox x:Name="textName" Text="{Binding trainerData.Name, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Player" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="200" HorizontalAlignment="Right" Margin="12,0,0,0" >
+                <TextBox Text="{Binding trainerData.PlayerName, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
             </local:TextFieldContentBlock>
         </Grid>
 
@@ -222,6 +219,10 @@
                     <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Seen, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Right" ShowButtonSpinner="False"/>
                 </WrapPanel>
             </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Concept" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                <TextBox Text="{Binding trainerData.Concept, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+
         </Grid>
 
         <!--MidBlock-->

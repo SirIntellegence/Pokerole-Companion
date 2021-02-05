@@ -41,7 +41,6 @@ namespace PokeroleUI2
             } }
         public string Name { get; set; }
 
-
         [XmlIgnoreAttribute]
         public string Type1 { get { return DexData.Type1; } }
         [XmlIgnoreAttribute]
@@ -72,7 +71,7 @@ namespace PokeroleUI2
         public int Victories { get; set; }
 
         public string Nature { get; set; }
-        public string Confidence { get; set; }
+        public int Confidence { get; set; }
         public string Status { get; set; }
         public string Accessory { get; set; }
         public string Ribbons { get; set; }
@@ -152,7 +151,7 @@ namespace PokeroleUI2
 
             Item = "Item";
             Nature = "Nature";
-            Confidence = "Confidence";
+            Confidence = 0;
             Status = "Status";
             Accessory = "Accessory";
             Ribbons = "Ribbons";

@@ -16,7 +16,7 @@ namespace PokeroleUI2
         public string Type1 { get; set; }
         public string Type2 { get; set; }
         public string Rank { get; set; }
-
+        public bool Starter { get; set; }
         public ListData(int id)
         {
             this.ID = id;

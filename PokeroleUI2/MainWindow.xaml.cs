@@ -30,8 +30,9 @@ namespace PokeroleUI2
         {
             dataManager = new ActiveDataManager();
             InitializeComponent();
-
-            dataManager.ActiveTrainer = new TrainerData("Red");
+            TrainerData Red = new TrainerData("Red");
+            dataManager.ActiveList = new TrainerList(new List<TrainerSave>());
+            dataManager.ActiveTrainer = Red;
             dataManager.DexMoveChanged += UpdateDexMove;
             dataManager.BoxMoveChanged += UpdateBoxMove;
             dataManager.DexAbilityChanged += UpdateDexAbility;

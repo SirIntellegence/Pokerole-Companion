@@ -41,7 +41,7 @@ namespace PokeroleUI2
         public PkmnStatCollection Skills;
 
         public string Name { get; set; }
-
+        public string PlayerName { get; set; }
         public string Concept { get; set; }
 
 
@@ -57,7 +57,7 @@ namespace PokeroleUI2
 
 
         public string Nature { get; set; }
-        public string Confidence { get; set; }
+        public int Confidence { get; set; }
 
         public int Caught { get; set; }
         public int Seen { get; set; }

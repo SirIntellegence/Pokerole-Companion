@@ -18,16 +18,11 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="160"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
-
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2.2*"/>
             <ColumnDefinition Width="2.2*"/>
             <ColumnDefinition Width="2.2*"/>
@@ -55,23 +50,9 @@
             <TextBlock Grid.Row="0" Grid.Column="2" TextWrapping="Wrap" Text="{Binding Path=pokemonData.Type1, Mode=OneWay}" Margin="0,0,0,0"  FontFamily="{StaticResource Bliss}" FontSize="18" x:Name="textType1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
             <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="{Binding Path=pokemonData.Type2, Mode=OneWay}" Margin="0,0,0,0"  FontFamily="{StaticResource Bliss}" FontSize="18" x:Name="textType2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
         </Grid>
-        <local:VerticalContentBlock Tag="Rank" Grid.Column="0" Grid.Row="2" Margin="0" Background="{StaticResource Col_LightBlack}">
-            <uc:RankControl x:Name="rankControl"  Margin="0,0,0,0" Rank="{Binding Path=pokemonData.Rank, Mode=TwoWay}"/>
-        </local:VerticalContentBlock>
-        <!--
-        <local:VerticalContentBlock Tag="Height" Grid.Row="2" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textHeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
-                <Run Text="{Binding Path=pokemonData.Height, Mode=OneWay}"/>
-                <Run Text="m"/>
-            </TextBlock>        </local:VerticalContentBlock>
-        <local:VerticalContentBlock Tag="Weight" Grid.Row="2" Grid.Column="1" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textWeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
-                <Run Text="{Binding Path=pokemonData.Weight, Mode=OneWay}"/>
-                <Run Text="kg"/>
-            </TextBlock>        </local:VerticalContentBlock> -->
-
+       
         <!--AttributeStack-->
-        <StackPanel Grid.ColumnSpan="1" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
             <TextBlock>
                 <Run Text="Attribute Points:" FontFamily="{DynamicResource SquareFont}"/>
                 <Run x:Name = "textAttributePoints" Text="0" FontFamily="{DynamicResource SquareFont}"/>
@@ -108,7 +89,7 @@
             </Border>
         </StackPanel>
         <!--SocialStack-->
-        <StackPanel Grid.ColumnSpan="1" Grid.Column="3" Margin="5,5,5,5" Grid.Row="1" x:Name="SocialDotPanel">
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" x:Name="SocialDotPanel">
             <TextBlock FontFamily="{DynamicResource SquareFont}">
                 <Run Text="Social Attribute Points:"/>
                 <Run x:Name = "textSocialPoints" Text="0"/>
@@ -144,11 +125,11 @@
                 </WrapPanel>
             </Border>
         </StackPanel>
+        <!--SkillStack-->
         <TextBlock FontFamily="{DynamicResource SquareFont}" Grid.ColumnSpan="1" Grid.Column="4" Grid.Row="1" Margin="5">
                 <Run Text="Skill Points:"/>
                 <Run x:Name = "textSkillPoints" Text="0"/>
         </TextBlock>
-
         <Border Background="{StaticResource Col_StatsBackRed}" Grid.ColumnSpan="1" Grid.Column="4" Grid.Row="1" Grid.RowSpan="3" CornerRadius="8" BorderThickness="2" Margin="3,18,3,3" Height="Auto">
             <StackPanel   x:Name="SkillDotPanel" Margin="5">
                 <WrapPanel>
@@ -201,8 +182,9 @@
                 </WrapPanel>
             </StackPanel>
         </Border>
+
         <!--HAPPYLOYAL-->
-        <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}" Grid.Row="2" Grid.Column="3">
+        <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
             <UniformGrid Columns="2">
             <StackPanel HorizontalAlignment="Center">
                 <TextBlock Text="Happiness" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" HorizontalAlignment="Center" Margin="5,0,5,0"/>
@@ -215,52 +197,85 @@
             </UniformGrid>
         </Border>
 
-        <Grid Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3">
+
+        <!--LeftBlock-->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <local:VerticalContentBlock Tag="Rank" Grid.Column="0" Grid.Row="0" Margin="0" Background="{StaticResource Col_LightBlack}">
+                <uc:RankControl x:Name="rankControl"  Margin="0,0,0,0" Rank="{Binding Path=pokemonData.Rank, Mode=TwoWay}"/>
+            </local:VerticalContentBlock>
+            <local:TextFieldContentBlock Tag="Nature" Grid.Column="1" Grid.Row="0">
+                <TextBox Text="{Binding Path=pokemonData.Nature, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Status" Grid.Column="0" Grid.Row="1">
+                <TextBox Text="{Binding Path=pokemonData.Status, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Confidence" Grid.Column="1" Grid.Row="1" >
+                <xctk:IntegerUpDown Text="{Binding Path=pokemonData.Confidence, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Item" Grid.Column="0" Grid.Row="2">
+                <TextBox Text="{Binding Path=pokemonData.Item, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Victories/Battles" Grid.Column="1" Grid.Row="2">
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <xctk:IntegerUpDown Text="{Binding Path=pokemonData.Victories, Mode=TwoWay}" ShowButtonSpinner="False" FontFamily="{StaticResource Bliss}"/>
+                    <TextBlock Text="/" FontFamily="{StaticResource Bliss}"/>
+                    <xctk:IntegerUpDown Text="{Binding Path=pokemonData.Battles, Mode=TwoWay}" ShowButtonSpinner="False" FontFamily="{StaticResource Bliss}"/>
+                </WrapPanel>
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Accessory" Grid.Column="0" Grid.Row="3" >
+                <TextBox Text="{Binding Path=pokemonData.Accessory, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Ribbons" Grid.Column="1" Grid.Row="3">
+                <TextBox Text="{Binding Path=pokemonData.Ribbons, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}"  />
+            </local:TextFieldContentBlock>
+        </Grid>
+
+        <!--CenterBlock-->
+        <Grid Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <local:VerticalContentBlock Tag="Ability" Grid.Column="3" Grid.Row="0" Grid.RowSpan="3" Margin="0" Background="{StaticResource Col_LightBlack}">
+            <uc:SimpleStatSliderControl x:Name="hpControl" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" statName="HP" Height="40"/>
+            <uc:SimpleStatSliderControl x:Name="willControl" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" statName="Will" Height="40"/>
+            
+            <local:VerticalContentBlock Tag="Ability" Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Margin="0" Background="{StaticResource Col_LightBlack}">
                 <uc:BoxAbilitySelector/>
             </local:VerticalContentBlock>
-            <local:VerticalContentBlock Tag="Def" Grid.Column="1" Grid.Row="0" Margin="0" Background="{StaticResource Col_LightBlack}">
+            <local:HorizontalContentBlock Tag="Def" Grid.Column="0" Grid.Row="1" Margin="0" Background="{StaticResource Col_LightBlack}">
                 <TextBlock x:Name="textDef" Text="{Binding Path=pokemonData.DEF, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Bliss}"  Width="45" TextAlignment="Center"/>
-            </local:VerticalContentBlock>
-            <local:VerticalContentBlock Tag="SDef" Grid.Column="2" Grid.Row="0" Margin="0" Background="{StaticResource Col_LightBlack}">
+            </local:HorizontalContentBlock>
+            <local:HorizontalContentBlock Tag="SDef" Grid.Column="1" Grid.Row="1" Margin="0" Background="{StaticResource Col_LightBlack}">
                 <TextBlock x:Name="textSdef" Text="{Binding Path=pokemonData.SPDEF, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Bliss}"  Width="45" TextAlignment="Center"/>
-            </local:VerticalContentBlock>
-            <uc:SimpleStatSliderControl x:Name="hpControl" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" statName="HP" Height="40"/>
-            <uc:SimpleStatSliderControl x:Name="willControl" Grid.Column="0" Grid.Row="1" Margin="0,0,0,0" statName="Will" Height="40"/>
+            </local:HorizontalContentBlock>
+            <local:HorizontalContentBlock Tag="Height" Grid.Column="1" Grid.Row="2" Margin="0" Background="{StaticResource Col_LightBlack}">
+                <TextBlock Text="{Binding Path=pokemonData.Height, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Bliss}"  Width="45" TextAlignment="Center"/>
+            </local:HorizontalContentBlock>
+            <local:HorizontalContentBlock Tag="Weight" Grid.Column="0" Grid.Row="2" Margin="0" Background="{StaticResource Col_LightBlack}">
+                <TextBlock Text="{Binding Path=pokemonData.Weight, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Bliss}"  Width="45" TextAlignment="Center"/>
+            </local:HorizontalContentBlock>
+
         </Grid>
 
-
-        <local:TextFieldContentBlock Tag="Nature" Grid.Column="1" Grid.Row="2">
-            <TextBox Text="{Binding Path=pokemonData.Nature, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
-        </local:TextFieldContentBlock>
-        <local:TextFieldContentBlock Tag="Confidence" Grid.Column="1" Grid.Row="3" >
-            <xctk:IntegerUpDown Text="{Binding Path=pokemonData.Confidence, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
-        </local:TextFieldContentBlock>
-        <local:TextFieldContentBlock Tag="Item" Grid.Column="0" Grid.Row="4">
-            <TextBox Text="{Binding Path=pokemonData.Item, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
-        </local:TextFieldContentBlock>
-        <local:TextFieldContentBlock Tag="Accessory" Grid.Column="0" Grid.Row="5" >
-            <TextBox Text="{Binding Path=pokemonData.Accessory, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
-        </local:TextFieldContentBlock>
-        <local:TextFieldContentBlock Tag="Ribbons" Grid.Column="1" Grid.Row="4">
-            <TextBox Text="{Binding Path=pokemonData.Ribbons, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}"  />
-        </local:TextFieldContentBlock>
-        <local:TextFieldContentBlock Tag="Status" Grid.Column="0" Grid.Row="3">
-            <TextBox Text="{Binding Path=pokemonData.Status, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
-        </local:TextFieldContentBlock>
-        
-        <Rectangle x:Name="ImageBack" Fill="AliceBlue" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
-        <Image x:Name="ImageDisplay" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
+        <Rectangle x:Name="ImageBack" Fill="AliceBlue" Margin="0,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <Image x:Name="ImageDisplay" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform" Grid.RowSpan="2"/>
 
 
 
