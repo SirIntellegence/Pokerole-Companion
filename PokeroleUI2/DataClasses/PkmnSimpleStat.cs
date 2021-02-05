@@ -12,6 +12,8 @@ namespace PokeroleUI2
         public int Max { get; set; }
         public int Value { get; set; }
 
+        public PkmnSimpleStat() { }
+
         public PkmnSimpleStat(int baseval, int max, int value)
         {
             BaseVal = baseval;

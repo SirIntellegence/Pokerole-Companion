@@ -21,51 +21,41 @@ namespace PokeroleUI2.Controls
     /// </summary>
     public partial class BoxSelector : UserControl
     {
+        private MainWindow mainwindow;
+        public ActiveDataManager dataManager;
+
         public EventHandler BoxSelection;
         public TrainerData activeTrainer;
-        ObservableCollection<PokemonData> data;
 
         public BoxSelector()
         {
+            mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
+            dataManager = mainwindow.dataManager;
+
             InitializeComponent();
+            dataManager.TrainerChanged += OnTrainerChanged;
         }
 
-        public void Update(TrainerData at)
+        void OnTrainerChanged(object sender, EventArgs e)
         {
-            activeTrainer = at;
+            activeTrainer = dataManager.ActiveTrainer;
             Update();
         }
 
         public void Update()
         {
-            data = new ObservableCollection<PokemonData>(activeTrainer.Party);
-            boxGrid.ItemsSource = data;
+            boxGrid.ItemsSource = activeTrainer.Party;
         }
 
         private void BoxGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RaiseBoxSelection((PokemonData)boxGrid.SelectedItem);
-        }
-        
-        private void RaiseBoxSelection(PokemonData selection)
-        {
-            if (this.BoxSelection != null)
+            PokemonData pd = (PokemonData)boxGrid.SelectedItem;
+            if(pd != null)
             {
-                this.BoxSelection(this, new BoxSelectionArgs(selection));
+                dataManager.ActiveBox = (PokemonData)boxGrid.SelectedItem;
             }
         }
+
         
-    }
-
-
-    public class BoxSelectionArgs : EventArgs
-    {
-        private readonly PokemonData _boxData;
-        public PokemonData boxData { get { return _boxData; } }
-
-        public BoxSelectionArgs(PokemonData pd)
-        {
-            _boxData = pd;
-        }
     }
 }

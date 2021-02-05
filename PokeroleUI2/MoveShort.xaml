@@ -6,14 +6,19 @@
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
-    <Grid>
+    
+<Grid>
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+        </Grid.OpacityMask>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
+        <Border x:Name="Border1" CornerRadius="20" Margin="1" Grid.RowSpan="3" Grid.ColumnSpan="5" Background="Teal"/>
 
 
-        <Button HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <Button HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="Button_Click" BorderThickness="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -23,18 +28,20 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
-                <Rectangle Fill="AliceBlue" Grid.ColumnSpan="6"/>
-                <TextBlock x:Name="textName" HorizontalAlignment="Left" Margin="5,5,5,0" TextWrapping="Wrap" Text="MoveName" VerticalAlignment="Center" FontFamily="{DynamicResource Bliss}" FontSize="18" Grid.Column="0"/>
-                <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="1">
-            <Run Text="Type" FontSize="12"/>
-            <LineBreak/>
-            <Run x:Name="textType" Text="Fire" FontFamily="{DynamicResource Bliss}"/>
+                <Rectangle x:Name="rectBackground" Fill="AliceBlue" Grid.ColumnSpan="6"/>
+                <TextBlock x:Name="textName" HorizontalAlignment="Left" Margin="5,5,5,0" TextWrapping="Wrap" Text="MoveName" VerticalAlignment="Center" FontFamily="{DynamicResource Bliss}" FontSize="22" Grid.Column="0"/>
+                <Rectangle x:Name="rectPower"  Fill="#66000000" Grid.Column="3"/>
+                <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="5">
+                    <Run x:Name="textType" Text="Fire" FontFamily="{DynamicResource Bliss}"/>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap"  VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="2">
-            <Run Text="Power" FontSize="12"/>
-            <LineBreak/>
-            <Run x:Name="textPower" Text="0" FontFamily="{DynamicResource Bliss}"/>
+                <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap"  VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="3">
+                    <Run Text="Power" FontSize="12"/>
+                    <LineBreak/>
+                    <Run x:Name="textPower" Text="0" FontFamily="{DynamicResource Bliss}"/>
                 </TextBlock>
+                <Image x:Name="imageCat" Grid.Column="4"/>
+
+                <!--
                 <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap"  VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="3">
             <Run Text="Accuracy" FontSize="12"/>
             <LineBreak/>
@@ -45,14 +52,10 @@
             <LineBreak/>
             <Run Text="0" FontFamily="{DynamicResource Bliss}"/>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" Block.TextAlignment="Center" Margin="5,5,5,0" TextWrapping="Wrap"  VerticalAlignment="Center" FontFamily="{DynamicResource SquareFont}" FontSize="18" Grid.Column="5">
-            <Run Text="Category" FontSize="12"/>
-            <LineBreak/>
-            <Run x:Name="textCategory" Text="Special" FontFamily="{DynamicResource Bliss}"/>
-                </TextBlock>
+                    -->
             </Grid>
         </Button>
-        <ComboBox x:Name="moveSelector" Grid.Column="1" Margin="0,0,0,0" SelectionChanged="MoveSelector_SelectionChanged">
+        <ComboBox x:Name="moveSelector" Grid.Column="1" Margin="0,0,0,0" SelectionChanged="MoveSelector_SelectionChanged" BorderThickness="0" IsSynchronizedWithCurrentItem="False">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" />

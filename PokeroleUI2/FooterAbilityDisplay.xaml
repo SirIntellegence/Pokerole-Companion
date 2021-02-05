@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.FooterAbilityDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+        </Grid.OpacityMask>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto" MinHeight="50"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="68.1"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="Border1" CornerRadius="20" Margin="1" Grid.RowSpan="3" Grid.ColumnSpan="5" Background="Gray"/>
+        <Rectangle x:Name="rectBackground"  Fill="{StaticResource Col_Midgray}" Grid.RowSpan="3" Grid.ColumnSpan="5"/>
+        <!--Name Display-->
+        <Rectangle Fill="{StaticResource Col_AbilityRed}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
+        <TextBlock x:Name="textName" Margin="20,0,0,0" Text="{Binding Path=abilityData.name, Mode=OneWay}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" FontSize="22" Foreground="White"/>
+        <!--Effect Display-->
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" TextAlignment="Left" Margin="20,5,0,5" FontFamily="{StaticResource Bliss}" Foreground="White" TextWrapping="Wrap" Text="{Binding Path=abilityData.desc, Mode=OneWay}">
+        </TextBlock>
+
+        <!--Future Desc display-->
+        <Rectangle Fill="{StaticResource Col_AbilityRed}" Grid.Row="2" Grid.ColumnSpan="4"/>
+
+
+
+
+    </Grid>
+</UserControl>

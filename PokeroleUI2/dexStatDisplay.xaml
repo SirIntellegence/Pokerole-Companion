@@ -8,48 +8,115 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+        </Grid.OpacityMask>
         <Grid.RowDefinitions>
             <!--HeaderRow-->
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="160"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <uc:PokemonBanner Grid.ColumnSpan="4" x:Name="controlBanner"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" Margin="0,0,0,0" VerticalAlignment="Center">
-            <Run Text="Height:" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
-            <Run Text="0" x:Name="textHeight" FontFamily="{StaticResource Bliss}"/>
-        </TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="0,0,0,0"  VerticalAlignment="Center">
-                        <Run Text="Weight:" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
-            <Run Text="0" x:Name="textWeight" FontFamily="{StaticResource Bliss}"/>
-        </TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="2" TextWrapping="Wrap"  Margin="0,0,0,0" VerticalAlignment="Center">
-            <Run Text="Base HP:" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
-            <Run Text="0" x:Name="textHP" FontFamily="{StaticResource Bliss}"/>
-        </TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="1" TextWrapping="Wrap" Margin="0,0,0,0" VerticalAlignment="Center">
-                        <Run Text="Suggested Rank" FontSize="12" FontFamily="{StaticResource SquareFont}"/>
-            <Run Text="0" x:Name="textRank" FontFamily="{StaticResource Bliss}"/>
-        </TextBlock>
-        <TextBlock Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="Description" Margin="0,0,0,0" x:Name="textDesc"/>
-        <TextBlock Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="Abilities" Margin="0,0,0,0" x:Name="textAbilities"/>
-        <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="Evolutions" Margin="0,0,0,0" x:Name="textEvo"/>
-        <StackPanel Grid.ColumnSpan="2" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
-            <uc:StatDots x:Name="STRDots" DotHeight = "11"/>
-            <uc:StatDots x:Name="DEXDots" DotHeight = "11"/>
-            <uc:StatDots x:Name="VITDots" DotHeight = "11"/>
-            <uc:StatDots x:Name="SPEDots" DotHeight = "11"/>
-            <uc:StatDots x:Name="INSDots" DotHeight = "11"/>
+        <Border x:Name="Border1" CornerRadius="20" Margin="1" Grid.RowSpan="6" Grid.ColumnSpan="7" Background="Gray"/>
+        <Rectangle x:Name="rectBackground" Fill="{Binding Path=dexData.typebrush1, Mode=OneWay}" Grid.RowSpan="6" Grid.ColumnSpan="7"/>
+        <Rectangle Fill="#33ffffff" Grid.RowSpan="5" Grid.ColumnSpan="7"/>
+        <!---Header-->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="{Binding Path=dexData.typebrush1, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="{Binding Path=dexData.typebrush2, Mode=OneWay}" Grid.Column="3" Margin="0,0,0,0"/>
+            <Rectangle Fill="{DynamicResource Col_Lightgray}" Grid.Column="1" Margin="0,0,0,0"/>
+
+            <TextBlock x:Name="textName"   Margin="20,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Foreground="White" Width="Auto" VerticalAlignment="Center">
+                <Run Text="{Binding Path=dexData.DexID, Mode=OneWay}"/>
+                <Run Text="{Binding Path=dexData.Name, Mode=OneWay}"/>
+            </TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Margin="0,0,0,0" FontFamily="{StaticResource SquareFont}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"><Run Text="Type"/><Run Text=":"/></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" TextWrapping="Wrap" Text="{Binding Path=dexData.Type1, Mode=OneWay}" Margin="0,0,0,0"  FontFamily="{StaticResource Bliss}" FontSize="18" x:Name="textType1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="{Binding Path=dexData.Type2, Mode=OneWay}" Margin="0,0,0,0"  FontFamily="{StaticResource Bliss}" FontSize="18" x:Name="textType2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        </Grid>
+
+    <local:VerticalContentBlock Tag="Height" Grid.Row="2" Background="{StaticResource Col_LightBlack}">
+            <TextBlock x:Name="textHeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
+                <Run Text="{Binding Path=dexData.Height, Mode=OneWay}"/>
+                <Run Text="m"/>
+            </TextBlock>
+        </local:VerticalContentBlock>
+        <local:VerticalContentBlock Tag="Weight" Grid.Row="2" Grid.Column="1" Background="{StaticResource Col_LightBlack}">
+            <TextBlock x:Name="textWeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
+                <Run Text="{Binding Path=dexData.Weight, Mode=OneWay}"/>
+                <Run Text="kg"/>
+            </TextBlock>        </local:VerticalContentBlock>
+        <local:VerticalContentBlock Tag="Base HP" Grid.Row="2" Grid.Column="2" Background="{StaticResource Col_LightBlack}">
+            <TextBlock x:Name="textHP" Text="{Binding Path=dexData.BaseHP, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" />
+        </local:VerticalContentBlock>
+        <local:VerticalContentBlock Tag="Rank" Grid.Row="2" Grid.Column="3" Background="{StaticResource Col_LightBlack}">
+            <TextBlock x:Name="textRank" Text="{Binding Path=dexData.Rank, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" />
+        </local:VerticalContentBlock>
+
+        <local:TextFieldContentBlock Tag="Description" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <TextBlock x:Name="textDesc" Text="{Binding Path=dexData.Description, Mode=OneWay}" TextAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" FontFamily="{StaticResource Bliss}" />
+        </local:TextFieldContentBlock>
+
+        <local:VerticalContentBlock Tag="Abilities" Grid.Column="4" Grid.Row="2" Grid.RowSpan="2" Margin="0" Background="{StaticResource Col_LightBlack}">
+            <uc:DexAbilitySelector/>
+        </local:VerticalContentBlock>
+        <local:VerticalContentBlock Tag="Evolutions" Grid.Column="4" Grid.Row="4" Margin="0" Background="{StaticResource Col_LightBlack}">
+        </local:VerticalContentBlock>
+        <!--AttributeStack-->
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="4" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
+            <TextBlock>
+                <Run Text="Attribute Points:" FontFamily="{DynamicResource SquareFont}"/>
+                <Run x:Name = "textAttributePoints" Text="0" FontFamily="{DynamicResource SquareFont}"/>
+            </TextBlock>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Strength" Width="100" FontFamily="{StaticResource SquareFont}" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="STRDots"  Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Dexterity" Width="100" FontFamily="{StaticResource SquareFont}" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="DEXDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}" Height="Auto">
+                <WrapPanel>
+                    <TextBlock Text="Vitality" Width="100" FontFamily="{StaticResource SquareFont}" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="VITDots"  Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Special" Width="100" FontFamily="{StaticResource SquareFont}" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="SPEDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Insight" Width="100" FontFamily="{StaticResource SquareFont}" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="INSDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+
         </StackPanel>
-        <Image x:Name="ImageDisplay" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
+        <Rectangle x:Name="ImageBack" Fill="AliceBlue" Grid.ColumnSpan="4" Margin="0,0,0,0" Grid.Row="1"/>
+        <Image x:Name="ImageDisplay" Grid.ColumnSpan="4" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
 
 
     </Grid>

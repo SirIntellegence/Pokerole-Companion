@@ -6,7 +6,7 @@
         xmlns:uc="clr-namespace:PokeroleUI2.Controls"
         xmlns:local="clr-namespace:PokeroleUI2"
         mc:Ignorable="d"
-        Title="🎲 Pokerole Companion 🎲" Height="450" Width="1000">
+        Title="🎲 Pokerole Companion 🎲" Height="550" Width="1000">
     <Grid>
         <TabControl x:Name="mainTabControl" Margin="0,0,0,0">
             <TabItem x:Name="dexTab" Header="Pokédex">
@@ -22,17 +22,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <!--Ability/Move Display-->
-                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <uc:DexSelector Grid.Column="0" Grid.RowSpan="2" x:Name="dexSelector"/>
-                    <TabControl Grid.Column="1" TabStripPlacement="Right" Grid.ColumnSpan="2">
+                    <TabControl Grid.Column="1" TabStripPlacement="Right" Grid.ColumnSpan="2" BorderThickness="0">
                         <!--Rotate Tabs 90 degrees-->
                         <TabControl.Resources>
                             <Style TargetType="{x:Type TabItem}">
                                 <Setter Property="HeaderTemplate">
                                     <Setter.Value>
                                         <DataTemplate>
-                                            <ContentPresenter Content="{TemplateBinding Content}">
+                                            <ContentPresenter Content="{TemplateBinding Content}" >
                                                 <ContentPresenter.LayoutTransform>
                                                     <RotateTransform Angle="270" />
                                                 </ContentPresenter.LayoutTransform>
@@ -56,12 +56,24 @@
                             </Grid>
                         </TabItem>
                     </TabControl>
+                    <uc:FooterMoveDisplay Grid.Column="1" Grid.Row="1" x:Name="DexFooterMoveDisplay"/>
+                    <uc:FooterAbilityDisplay Grid.Column="1" Grid.Row="1" x:Name="DexFooterAbilityDisplay"/>
+
                     <Button Content="Catch!" FontFamily="SquareFont" Grid.Column="2" Grid.Row="1" Margin="1,1,1,1" Click="Catch_Click"/>
                 </Grid>
             </TabItem>
             <!--//////////////////TRAINER CARD////////////////////-->
             <TabItem x:Name="trainerTab" Header="Trainer Card">
-                <Grid Background="#FFFFFFFF"/>
+                <Grid Background="#FFFFFFFF">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <uc:TrainerSerializationControl/>
+                    <uc:TrainerStatDisplay x:Name="trainerStatDisplay" Grid.Column="1"/>
+
+
+                </Grid>
                 <!--Trainer Card-->
             </TabItem>
             <!--/////////////POKEMON//////////////////-->
@@ -80,7 +92,7 @@
                         <RowDefinition Height="120"/>
                     </Grid.RowDefinitions>
                     <uc:BoxSelector Grid.Column="0" Grid.RowSpan="2" x:Name="boxSelector"/>
-                    <TabControl Grid.Column="1" TabStripPlacement="Right">
+                    <TabControl Grid.Column="1" TabStripPlacement="Right" BorderThickness="0">
                         <!--Rotate Tabs 90 degrees-->
                         <TabControl.Resources>
                             <Style TargetType="{x:Type TabItem}">
@@ -111,6 +123,9 @@
                             <!--Trainer Card-->
                         </TabItem>
                     </TabControl>
+                    <uc:FooterMoveDisplay Grid.Column="1" Grid.Row="1" x:Name="BoxFooterMoveDisplay"/>
+                    <uc:FooterAbilityDisplay Grid.Column="1" Grid.Row="1" x:Name="BoxFooterAbilityDisplay"/>
+
                 </Grid>
             </TabItem>
             <TabItem x:Name="bagTab" Header="Bag">

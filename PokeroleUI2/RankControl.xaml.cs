@@ -22,9 +22,15 @@ namespace PokeroleUI2.Controls
     /// </summary>
     public partial class RankControl : UserControl, INotifyPropertyChanged
     {
-        public PokemonData pd;
+        private MainWindow mainwindow;
+        public ActiveDataManager dataManager;
 
-
+        public static readonly DependencyProperty RankProperty = DependencyProperty.Register("Rank", typeof(int), typeof(RankControl));
+        public int Rank
+        {
+            get { return (int)GetValue(RankProperty); }
+            set { SetValue(RankProperty, value); }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -34,32 +40,28 @@ namespace PokeroleUI2.Controls
 
         public RankControl()
         {
-            InitializeComponent();
-        }
+            mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
+            dataManager = mainwindow.dataManager;
 
-        public void Update(PokemonData pd)
-        {
-            this.pd = pd;
-            Update();
+            InitializeComponent();
         }
 
         public void Update()
         {
-            textRank.Text = pd.TextRank;
+            textRank.Text = PokemonUtils.RankFromInt(Rank);
+            imageRank.Source = new BitmapImage(new Uri("pack://application:,,,/Graphics/Icons/Rank_" + PokemonUtils.RankFromInt(Rank) + ".png"));
         }
 
         private void DecreaseButton_Click(object sender, RoutedEventArgs e)
         {
-            pd.Rank = Math.Max(0, pd.Rank - 1);
-            pd.UpdateDependencies();
+            Rank = Math.Max(0, Rank - 1);
             OnPropertyChanged();
             Update();
         }
 
         private void IncreaseButton_Click(object sender, RoutedEventArgs e)
         {
-            pd.Rank = Math.Min(6, pd.Rank + 1);
-            pd.UpdateDependencies();
+            Rank = Math.Min(6, Rank + 1);
             OnPropertyChanged();
             Update();
         }

@@ -5,12 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e965bac5aaea4b3aaa369f363cf64582" Name="Diagram1" >
-        <EntityTypeShape EntityType="PokedexDBModel.AbilitiesCore" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.AbilitiesCore" Width="1.5" PointX="1.125" PointY="0.75" />
         <EntityTypeShape EntityType="PokedexDBModel.AttributesCore" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PokedexDBModel.DexCore" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PokedexDBModel.LearnsetsCore" Width="1.5" PointX="6.5" PointY="0.75" />
-        <EntityTypeShape EntityType="PokedexDBModel.MovesCore" Width="1.5" PointX="8.125" PointY="0.75" />
-        <EntityTypeShape EntityType="PokedexDBModel.ImagePath" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.DexCore" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.LearnsetsCore" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.MovesCore" Width="1.5" PointX="7.625" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.ImagePath" Width="1.5" PointX="9.25" PointY="0.75" />
+        <EntityTypeShape EntityType="PokedexDBModel.AbilitiesDesc" Width="1.5" PointX="11.25" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

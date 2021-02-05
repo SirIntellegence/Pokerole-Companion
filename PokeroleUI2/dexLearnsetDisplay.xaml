@@ -9,11 +9,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DataGrid x:Name="MoveGrid" Margin="0,0,0,0" IsReadOnly="True" AlternatingRowBackground="AliceBlue" SelectionChanged="MoveGrid_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDown" Handler="Row_Click"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
                     <DataGridTextColumn x:Name ="columnRank" Binding ="{Binding Path=RankString}" Header="Rank"/>
                     <DataGridTextColumn x:Name ="columnType" Binding ="{Binding Path=Type}" Header="Type"/>
                     <DataGridTextColumn x:Name ="columnName" Binding ="{Binding Path=Name}" Header="Name"/>
             </DataGrid.Columns>
+           
 
         </DataGrid>
 

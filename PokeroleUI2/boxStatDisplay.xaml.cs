@@ -26,7 +26,8 @@ namespace PokeroleUI2.Controls
         private MainWindow mainwindow;
         public ActiveDataManager dataManager;
         private PokemonData _pokemonData;
-        public PokemonData PokemonData
+
+        public PokemonData pokemonData
         {
             get { return _pokemonData; }
             set
@@ -48,7 +49,6 @@ namespace PokeroleUI2.Controls
 
             DataContext = this;
             InitializeComponent();
-            MainGrid.Visibility = Visibility.Hidden;
 
             StatDotsList = new List<StatDots> { STRDots, DEXDots, VITDots, SPEDots, INSDots,
                 TOUDots, COODots, BEADots, CLEDots, CUTDots,
@@ -65,70 +65,86 @@ namespace PokeroleUI2.Controls
 
         void OnBoxChanged(object sender, EventArgs e)
         {
-            PokemonData = dataManager.ActiveBox;
-            DisplayNewPokemon(PokemonData);
+            pokemonData = dataManager.ActiveBox;
+            if(pokemonData == null) {
+                Clear();
+                return; }
+            UpdatePokemon();
             mainwindow.SetColours();
         }
 
-        public void DisplayNewPokemon(PokemonData pokemonData)
+        public void Clear()
         {
-            PokemonData = pokemonData;
-            controlBanner.textName.Text = PokemonData.Name;
-            controlBanner.textType1.Text = PokemonData.Type1;
-            controlBanner.textType2.Text = PokemonData.Type2;
+            foreach (StatDots sd in StatDotsList)
+            {
+                sd.Clear();
+            }
+            UpdateImageDisplay();
+            textAttributePoints.Text = "";
+            textSocialPoints.Text = "";
+            textSkillPoints.Text = "";
+            hpControl.Update(null);
+            willControl.Update(null);
+            textDef.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            textSdef.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+        }
 
-            STRDots.SetStats(PokemonData.Attributes.GetStatByTag("Strength"), PokemonData.Attributes);
-            DEXDots.SetStats(PokemonData.Attributes.GetStatByTag("Dexterity"), PokemonData.Attributes);
-            VITDots.SetStats(PokemonData.Attributes.GetStatByTag("Vitality"), PokemonData.Attributes);
-            SPEDots.SetStats(PokemonData.Attributes.GetStatByTag("Special"), PokemonData.Attributes);
-            INSDots.SetStats(PokemonData.Attributes.GetStatByTag("Insight"), PokemonData.Attributes);
+        public void UpdatePokemon()
+        {
+            if(pokemonData == null)
+            {
+                return;
+            }
+            STRDots.SetStats(pokemonData.Attributes.GetStatByTag("Strength"), pokemonData.Attributes);
+            DEXDots.SetStats(pokemonData.Attributes.GetStatByTag("Dexterity"), pokemonData.Attributes);
+            VITDots.SetStats(pokemonData.Attributes.GetStatByTag("Vitality"), pokemonData.Attributes);
+            SPEDots.SetStats(pokemonData.Attributes.GetStatByTag("Special"), pokemonData.Attributes);
+            INSDots.SetStats(pokemonData.Attributes.GetStatByTag("Insight"), pokemonData.Attributes);
 
-            TOUDots.SetStats(PokemonData.SocialAttributes.GetStatByTag("Tough"), PokemonData.SocialAttributes);
-            COODots.SetStats(PokemonData.SocialAttributes.GetStatByTag("Cool"), PokemonData.SocialAttributes);
-            BEADots.SetStats(PokemonData.SocialAttributes.GetStatByTag("Beauty"), PokemonData.SocialAttributes);
-            CLEDots.SetStats(PokemonData.SocialAttributes.GetStatByTag("Clever"), PokemonData.SocialAttributes);
-            CUTDots.SetStats(PokemonData.SocialAttributes.GetStatByTag("Cute"), PokemonData.SocialAttributes);
+            TOUDots.SetStats(pokemonData.SocialAttributes.GetStatByTag("Tough"), pokemonData.SocialAttributes);
+            COODots.SetStats(pokemonData.SocialAttributes.GetStatByTag("Cool"), pokemonData.SocialAttributes);
+            BEADots.SetStats(pokemonData.SocialAttributes.GetStatByTag("Beauty"), pokemonData.SocialAttributes);
+            CLEDots.SetStats(pokemonData.SocialAttributes.GetStatByTag("Clever"), pokemonData.SocialAttributes);
+            CUTDots.SetStats(pokemonData.SocialAttributes.GetStatByTag("Cute"), pokemonData.SocialAttributes);
 
-            BRAWLDots.SetStats(PokemonData.Skills.GetStatByTag("Brawl"), PokemonData.Skills);
-            CHANNDots.SetStats(PokemonData.Skills.GetStatByTag("Channel"), PokemonData.Skills);
-            CLASHDots.SetStats(PokemonData.Skills.GetStatByTag("Clash"), PokemonData.Skills);
-            EVADEDots.SetStats(PokemonData.Skills.GetStatByTag("Evasion"), PokemonData.Skills);
-            ALERTDots.SetStats(PokemonData.Skills.GetStatByTag("Alert"), PokemonData.Skills);
-            ATHLEDots.SetStats(PokemonData.Skills.GetStatByTag("Athletic"), PokemonData.Skills);
-            NATURDots.SetStats(PokemonData.Skills.GetStatByTag("Nature"), PokemonData.Skills);
-            STEALDots.SetStats(PokemonData.Skills.GetStatByTag("Stealth"), PokemonData.Skills);
-            ALLURDots.SetStats(PokemonData.Skills.GetStatByTag("Allure"), PokemonData.Skills);
-            ETIQUDots.SetStats(PokemonData.Skills.GetStatByTag("Etiquette"), PokemonData.Skills);
-            INTIMDots.SetStats(PokemonData.Skills.GetStatByTag("Intimidate"), PokemonData.Skills);
-            PERFODots.SetStats(PokemonData.Skills.GetStatByTag("Perform"), PokemonData.Skills);
+            BRAWLDots.SetStats(pokemonData.Skills.GetStatByTag("Brawl"), pokemonData.Skills);
+            CHANNDots.SetStats(pokemonData.Skills.GetStatByTag("Channel"), pokemonData.Skills);
+            CLASHDots.SetStats(pokemonData.Skills.GetStatByTag("Clash"), pokemonData.Skills);
+            EVADEDots.SetStats(pokemonData.Skills.GetStatByTag("Evasion"), pokemonData.Skills);
+            ALERTDots.SetStats(pokemonData.Skills.GetStatByTag("Alert"), pokemonData.Skills);
+            ATHLEDots.SetStats(pokemonData.Skills.GetStatByTag("Athletic"), pokemonData.Skills);
+            NATURDots.SetStats(pokemonData.Skills.GetStatByTag("Nature"), pokemonData.Skills);
+            STEALDots.SetStats(pokemonData.Skills.GetStatByTag("Stealth"), pokemonData.Skills);
+            ALLURDots.SetStats(pokemonData.Skills.GetStatByTag("Allure"), pokemonData.Skills);
+            ETIQUDots.SetStats(pokemonData.Skills.GetStatByTag("Etiquette"), pokemonData.Skills);
+            INTIMDots.SetStats(pokemonData.Skills.GetStatByTag("Intimidate"), pokemonData.Skills);
+            PERFODots.SetStats(pokemonData.Skills.GetStatByTag("Perform"), pokemonData.Skills);
 
-            LOYALDots.SetStats(PokemonData.Loyalty);
-            HAPPYDots.SetStats(PokemonData.Happiness);
+            LOYALDots.SetStats(pokemonData.Loyalty);
+            HAPPYDots.SetStats(pokemonData.Happiness);
 
-            textHeight.Text = PokemonData.Height.ToString();
-            textWeight.Text = PokemonData.Weight.ToString();
 
-            rankControl.Update(PokemonData);
-            hpControl.Update(PokemonData, PokemonData.HP);
-            willControl.Update(PokemonData, PokemonData.Will);
-
-            NatureControl.Update(PokemonData.Nature);
-            ConfidenceControl.Update(PokemonData.Confidence);
-            ItemControl.Update(PokemonData.Item);
-            AccessoryControl.Update(PokemonData.Accessory);
-            RibbonsControl.Update(PokemonData.Ribbons);
-            StatusControl.Update(PokemonData.Status);
+            rankControl.Update();
+            hpControl.Update(pokemonData.HP);
+            willControl.Update(pokemonData.Will);
 
             UpdateImageDisplay();
 
-            MainGrid.Visibility = Visibility.Visible;
+            textAttributePoints.Text = pokemonData.Attributes.AvailablePoints.ToString();
+            textSocialPoints.Text = pokemonData.SocialAttributes.AvailablePoints.ToString();
+            textSkillPoints.Text = pokemonData.Skills.AvailablePoints.ToString();
         }
 
         public void UpdatePointsDisplay()
         {
-            textAttributePoints.Text = PokemonData.Attributes.AvailablePoints.ToString();
-            textSocialPoints.Text = PokemonData.SocialAttributes.AvailablePoints.ToString();
-            textSkillPoints.Text = PokemonData.Skills.AvailablePoints.ToString();
+            textAttributePoints.Text = pokemonData.Attributes.AvailablePoints.ToString();
+            textSocialPoints.Text = pokemonData.SocialAttributes.AvailablePoints.ToString();
+            textSkillPoints.Text = pokemonData.Skills.AvailablePoints.ToString();
+
+            hpControl.Update(pokemonData.HP);
+            willControl.Update(pokemonData.Will);
+            textDef.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            textSdef.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
 
             foreach (StatDots sd in StatDotsList)
             {
@@ -138,17 +154,21 @@ namespace PokeroleUI2.Controls
 
         public void UpdateImageDisplay()
         {
-            string path = "pack://application:,,,/Graphics/Sprites/FullRes/" + PokemonUtils.GetImagePath(PokemonData.dexID);
-            Uri uri = new Uri(path);
-            BitmapImage image = new BitmapImage(uri);
-            ImageDisplay.Source = image;
+            if(pokemonData == null)
+            {
+                ImageDisplay.Source = null;
+                return;
+            }
+            ImageDisplay.Source = PokemonUtils.GetPkmnImage(pokemonData.dexID); ;
     }
 
 
         void Stats_PropertyChanged (object sender, PropertyChangedEventArgs e)
         {
+            if(pokemonData == null) { return; }
+            pokemonData.UpdateDependencies();
+
             UpdatePointsDisplay();
-            PokemonData.UpdateDependencies();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

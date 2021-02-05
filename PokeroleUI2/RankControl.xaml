@@ -6,19 +6,12 @@
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="200">
-    <Grid Width="Auto" HorizontalAlignment="Center">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="11"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="11"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        
-        <TextBlock VerticalAlignment="Top" Margin="0,0,0,0" FontSize="12" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="SquareFont" Text="Rank"  Grid.Column="0" TextAlignment="Center"/>
-        <Button VerticalAlignment="Bottom" x:Name="decreaseButton" Content="-" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="1" Click="DecreaseButton_Click"/>
-        <Button VerticalAlignment="Bottom" x:Name="increaseButton" Content="+" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="3" Click="IncreaseButton_Click"/>
-        <TextBlock VerticalAlignment="Bottom" x:Name="textRank" Margin="0,0,0,0" FontSize="10" TextWrapping="Wrap" Text="TextBlock"  Grid.Column="2" TextAlignment="Center"/>
-
+    <Grid HorizontalAlignment="Center">
+        <WrapPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,5,0" Width="Auto">
+                <Button VerticalAlignment="Center" x:Name="decreaseButton" Content="-" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="1" Click="DecreaseButton_Click"/>
+                <Image x:Name="imageRank" Height="15" Width="15"/>
+                <TextBlock  x:Name="textRank" Margin="0,0,0,0" FontSize="10" TextWrapping="Wrap" TextAlignment="Center" FontFamily="{StaticResource Bliss}" VerticalAlignment="Center"/>
+                <Button VerticalAlignment="Center" x:Name="increaseButton" Content="+" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="3" Click="IncreaseButton_Click"/>
+            </WrapPanel>
     </Grid>
 </UserControl>

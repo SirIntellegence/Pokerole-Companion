@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PokeroleUI2.Controls;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace PokeroleUI2
 {
@@ -28,62 +29,54 @@ namespace PokeroleUI2
         public MainWindow()
         {
             dataManager = new ActiveDataManager();
-            dataManager.ActiveTrainer = new TrainerData("Red");
             InitializeComponent();
-            //dexSelector.DexSelection += new EventHandler(dexSelector_DexSelection);
-            boxSelector.BoxSelection += new EventHandler(boxSelector_BoxSelection);
-        }
 
-        private void dexSelector_DexSelection(object sender, EventArgs e)
-        {
-            DexSelectionArgs dsa = (DexSelectionArgs)e;
-            dataManager.ActiveDex = dsa.dexData;
-            //DexUpdate();
-        }
+            dataManager.ActiveTrainer = new TrainerData("Red");
+            dataManager.DexMoveChanged += UpdateDexMove;
+            dataManager.BoxMoveChanged += UpdateBoxMove;
+            dataManager.DexAbilityChanged += UpdateDexAbility;
+            dataManager.BoxAbilityChanged += UpdateBoxAbility;
+            dataManager.DexMoveAbilityToggled += UpdateDexAbility;
+            dataManager.BoxMoveAbilityToggled += UpdateBoxAbility;
 
-        private void DexUpdate()
-        {
-            if (dataManager.ActiveDex == null)
-            {
-                //hide dex
-                return;
-            }
-            //show dex
-            SetColours();
-            dexStatDisplay.Update(dataManager.ActiveDex);
-            dexLearnset.Update(dataManager.ActiveDex.ID);
-        }
 
-        private void boxSelector_BoxSelection(object sender, EventArgs e)
-        {
-            BoxSelectionArgs bsa = (BoxSelectionArgs)e;
-            dataManager.ActiveBox = bsa.boxData;
-            //BoxUpdate();
         }
-/*
-        private void BoxUpdate()
-        {
-            if(dataManager.ActiveBox == null)
-            {
-                //hide box
-                return;
-            }
-            //show box
-            SetColours();
-            boxStatDisplay.DisplayNewPokemon(dataManager.ActiveBox);
-            boxMovesDisplay.Update(dataManager.ActiveBox);
-        }
-        */
 
         private void Catch_Click(object sender, RoutedEventArgs e)
         {
             if(dexStatDisplay.dexData != null)
             {
                 dataManager.ActiveTrainer.CatchPokemon(dexStatDisplay.dexData);
-                boxSelector.Update(dataManager.ActiveTrainer);
-                dataManager.ActiveBox = dataManager.ActiveTrainer.ActivePokemon;
-                //BoxUpdate();
             }
+        }
+
+        public void UpdateDexMove(object sender, PropertyChangedEventArgs e)
+        {
+            DexFooterMoveDisplay.SetMove(dataManager.ActiveDexMoveData);
+            DexFooterAbilityDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+            DexFooterMoveDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+        }
+
+        public void UpdateBoxMove(object sender, PropertyChangedEventArgs e)
+        {
+            BoxFooterMoveDisplay.SetMove(dataManager.ActiveBoxMoveData);
+            BoxFooterAbilityDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
+            BoxFooterMoveDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
+
+        }
+
+        public void UpdateDexAbility(object sender, PropertyChangedEventArgs e)
+        {
+            DexFooterAbilityDisplay.SetAbility(dataManager.ActiveDexAbility);
+            DexFooterAbilityDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+            DexFooterMoveDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+        }
+
+        public void UpdateBoxAbility(object sender, PropertyChangedEventArgs e)
+        {
+            BoxFooterAbilityDisplay.SetAbility(dataManager.ActiveBoxAbility);
+            BoxFooterAbilityDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
+            BoxFooterMoveDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
         }
 
         public void SetColours()

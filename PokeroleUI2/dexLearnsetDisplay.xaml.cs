@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,28 +52,16 @@ namespace PokeroleUI2.Controls
             MoveGrid.ItemsSource = data;
         }
 
-        private void RaiseMoveSelection(MoveData selection)
-        {
-            if (this.MoveSelection != null)
-            {
-                this.MoveSelection(this, new MoveSelectionArgs(selection));
-            }
-        }
-
         private void MoveGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RaiseMoveSelection((MoveData)MoveGrid.SelectedItem);
+            MoveData md = (MoveData)MoveGrid.SelectedItem;
+            dataManager.ActiveDexMoveData = md;
         }
-    }
 
-    public class MoveSelectionArgs : EventArgs
-    {
-        private readonly MoveData _moveData;
-        public MoveData moveData { get { return _moveData; } }
-
-        public MoveSelectionArgs(MoveData md)
+        private void Row_Click(object sender, MouseButtonEventArgs e)
         {
-            _moveData = md;
+            dataManager.DexMoveAbilityToggle = true;
         }
     }
+
     }

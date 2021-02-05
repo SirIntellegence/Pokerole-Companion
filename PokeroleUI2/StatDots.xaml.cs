@@ -24,7 +24,7 @@ namespace PokeroleUI2.Controls
     public partial class StatDots : UserControl, INotifyPropertyChanged
     {
         public PkmnStatCollection StatParent = null;
-
+        private bool Initialising = false;
         private PkmnStat _stat { get; set; }
         public PkmnStat Stat
         {
@@ -32,9 +32,14 @@ namespace PokeroleUI2.Controls
             set
             {
                 _stat = value;
-                OnPropertyChanged();
+                if (!Initialising)
+                {
+                    OnPropertyChanged();
+                }
             }
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -42,13 +47,12 @@ namespace PokeroleUI2.Controls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         public bool Adjustable = false;
-        public double DotHeight { get; set; }
-        public SolidColorBrush brushBlack = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3c3c3b"));
-        public SolidColorBrush brushWhite = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffffff"));
-        public BitmapImage mask = new BitmapImage(new Uri("pack://application:,,,/Graphics/Icons/CircleMask.png"));
-        ImageBrush maskBrush;
+        public double DotHeight = 11;
+        public Brush brushBlack = (Brush)Application.Current.Resources["Col_LightBlack"];
+        public Brush brushWhite = Brushes.White;
+        private List<Ellipse> whitedots;
+        private List<Ellipse> blackdots;
 
         public StatDots()
         {
@@ -56,33 +60,53 @@ namespace PokeroleUI2.Controls
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                 return;
             this.DataContext = this;
-            MakeBrush();
+            MakeDots();
         }
 
-        public void MakeBrush()
+        private void MakeDots()
         {
-            maskBrush = new ImageBrush(mask);
-            maskBrush.AlignmentX = AlignmentX.Left;
-            maskBrush.AlignmentY = AlignmentY.Top;
-            maskBrush.Stretch = Stretch.UniformToFill;
+            blackdots = new List<Ellipse>();
+            whitedots = new List<Ellipse>();
+            for(int i = 0; i < 12; i++) {
+                Ellipse dot = new Ellipse() { Width = DotHeight, Height = DotHeight, Fill = brushBlack, Visibility = Visibility.Collapsed };
+                wrapPanel.Children.Add(dot);
+                blackdots.Add(dot);
+            }
+            for (int i = 0; i < 12; i++)
+            {
+                Ellipse dot = new Ellipse() { Width = DotHeight, Height = DotHeight, Fill = brushWhite, Visibility = Visibility.Collapsed };
+                wrapPanel.Children.Add(dot);
+                whitedots.Add(dot);
+            }
+        }
+
+        public void Clear()
+        {
+            Stat = null;
+            foreach (Ellipse e in wrapPanel.Children)
+            {
+                e.Visibility = Visibility.Collapsed;
+            }
         }
 
         private bool AdjustUp()
         {
+            if (Stat == null) { return false; }
+
             bool adjustUp = Adjustable && Stat.CanIncrease;
 
             if (StatParent != null)
             {
                 adjustUp = adjustUp && StatParent.CanSpendPoints;
             }
-            Debug.WriteLine("StatDotChange");
             return adjustUp;
         }
 
         private bool AdjustDown()
         {
+            if (Stat == null) { return false; }
+
             bool adjustDown = Adjustable && Stat.CanDecrease;
-            Debug.WriteLine("StatDotChange");
 
             return adjustDown;
         }
@@ -96,9 +120,12 @@ namespace PokeroleUI2.Controls
 
         public void SetStats(PkmnStat pstat, bool adjustable = true)
         {
+            if(pstat == null) { Clear(); return; }
+            Initialising = true;
             Adjustable = adjustable;
             Stat = pstat;
             UpdateStats();
+            Initialising = false;
         }
 
         public void UpdateStats()
@@ -110,28 +137,40 @@ namespace PokeroleUI2.Controls
 
             int val = Stat.Value;
             int max = Stat.MaxValue;
-            wrapPanel.Children.Clear();
-            for (int i = 0; i < max; i++)
+            
+            for (int i = 0, j = 0; j < 12; i++)
             {
-                Brush b = brushWhite;
-                if (i < val) { b = brushBlack; }
-
-                Rectangle rect = new Rectangle()
+                if (i < val)
                 {
-                    Width = DotHeight,
-                    Height = DotHeight,
-                    Fill = b,
-                    OpacityMask = maskBrush,
-
-                };
-
-                wrapPanel.Children.Add(rect);
-
+                    blackdots[i].Visibility = Visibility.Visible;
+                } else if (i < max)
+                {
+                    blackdots[i].Visibility = Visibility.Collapsed;
+                    whitedots[j].Visibility = Visibility.Visible;
+                    j++;
+                }
+                else
+                {
+                    if(i < 12) {
+                    blackdots[i].Visibility = Visibility.Collapsed;
+                    }
+                    whitedots[j].Visibility = Visibility.Collapsed;
+                    j++;
+                }
             }
+            
+
+            if (!AdjustUp()) { increaseButton.Visibility = Visibility.Collapsed; }
+            else { increaseButton.Visibility = Visibility.Visible; }
+
+            if (!AdjustDown()) { decreaseButton.Visibility = Visibility.Collapsed; }
+            else { decreaseButton.Visibility = Visibility.Visible; }
         }
 
         private void IncreaseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Stat == null) { return; }
+
             if (AdjustUp() == false)
             {
                 return;
@@ -148,6 +187,8 @@ namespace PokeroleUI2.Controls
 
         private void DecreaseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Stat == null) { return; }
+
             if (AdjustDown() == false)
             {
                 return;

@@ -9,9 +9,9 @@ namespace PokeroleUI2
     public class PkmnStat
     {
         public string tag { get; set; }
-        private int maxVal;
-        private int baseVal;
-        private int addVal;
+        public int maxVal { get; set; }
+        public int baseVal { get; set; }
+        public int addVal { get; set; }
 
         public int AddVal { get { return addVal; } }
         public int MaxValue { get { return maxVal; } }
@@ -19,6 +19,8 @@ namespace PokeroleUI2
 
         public bool CanIncrease { get { return Value < MaxValue; } }
         public bool CanDecrease { get { return Value > baseVal; } }
+
+        public PkmnStat() { }
 
         public PkmnStat(string tag, int baseVal, int maxVal)
         {

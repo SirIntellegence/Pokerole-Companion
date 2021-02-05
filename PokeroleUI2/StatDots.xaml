@@ -11,16 +11,14 @@
     <Grid Height="15">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="11"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="13"/>
+            <ColumnDefinition Width="11"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="backerPlate" StrokeThickness="1" Grid.ColumnSpan="5" RadiusX="4" RadiusY="4" Stroke="{DynamicResource Col_LightBlack}" Fill="{DynamicResource Col_StatsBackRed}"/>
-        <Button x:Name="decreaseButton" Content="-" FontSize="8" Width="11" Height="11" Grid.Column="1" Margin="0,0,0,0" Click="DecreaseButton_Click" VerticalAlignment="Center"/>
-        <WrapPanel x:Name="wrapPanel" Margin="0,0,0,0" MinWidth="11" Grid.Column="2" VerticalAlignment="Center"/>
-        <Button x:Name="increaseButton" Content="+" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="3" HorizontalAlignment="Left" Click="IncreaseButton_Click" VerticalAlignment="Center"/>
-        <TextBlock  Text="{Binding Path=Stat.tag, Mode=TwoWay}"  Grid.Column="0" Margin="0,0,5,0" x:Name="statTag" TextAlignment="Right" FontFamily="SquareFont" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <Button x:Name="decreaseButton" Content="-" FontSize="8" Width="11" Height="11" Grid.Column="0" Margin="0,0,0,0" Click="DecreaseButton_Click" VerticalAlignment="Center"/>
+        <WrapPanel x:Name="wrapPanel" Margin="0,0,0,0" MinWidth="11" Grid.Column="1" VerticalAlignment="Center">
+        </WrapPanel>
+        <Button x:Name="increaseButton" Content="+" FontSize="8" Width="11" Height="11" Margin="0,0,0,0" Grid.Column="2" HorizontalAlignment="Left" Click="IncreaseButton_Click" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

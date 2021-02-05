@@ -5,6 +5,7 @@
     <!--MAIN DATA PANEL DIMENSIONS-->
     <!--MAIN DATA CONTAINER-->
 
+
     <!--FONTS-->
     <Style x:Key="Bliss18" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="/fonts/Blissful Thinking.otf #blissfulthinking"/>
@@ -36,12 +37,6 @@
     <SolidColorBrush x:Key="Col_Poison" Color="#a964ad" />
     <SolidColorBrush x:Key="Col_Rock" Color="#a9956e" />
     <SolidColorBrush x:Key="Col_Steel" Color="#a4aabf" />
-
-    <SolidColorBrush x:Key="Col_Type2" Color="#a9956e" />
-    <SolidColorBrush x:Key="Col_Type1" Color="#a4aabf" />
-    <SolidColorBrush x:Key="Col_MoveType" Color="#a4aabf" />
-
-
     <SolidColorBrush x:Key="Col_Offwhite" Color="#e2e2e2" />
     <SolidColorBrush x:Key="Col_Lightgray" Color="#d0d0d0" />
     <SolidColorBrush x:Key="Col_Midgray" Color="#a8a7a7" />
@@ -52,6 +47,7 @@
     <SolidColorBrush x:Key="Col_StatsBackRed" Color="#e55035" />
     <SolidColorBrush x:Key="Col_StatsBackRedMedium" Color="#c74b34" />
     <SolidColorBrush x:Key="Col_StatsBackRedDark" Color="#b24631" />
+    <SolidColorBrush x:Key="Col_AbilityRed" Color="#f05353" />
     <SolidColorBrush x:Key="Col_Attributes" Color="#00b2c2" />
     <SolidColorBrush x:Key="Col_AttributesTough" Color="#f6e593" />
     <SolidColorBrush x:Key="Col_AttributesCool" Color="#f9ad8e" />
@@ -61,6 +57,83 @@
 
 
 
+
+    <!--HORIZONTAL CONTENT BLOCK-->
+    <Style TargetType="{x:Type local:HorizontalContentBlock}">
+        <Setter Property="Background" Value="{StaticResource Col_LightBlack}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:HorizontalContentBlock}">
+                    <Grid Height="Auto">
+                        <Grid.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+                        </Grid.OpacityMask>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Border1" CornerRadius="5" Margin="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Background="{TemplateBinding Background}"/>
+                        <TextBlock x:Name="BlockLabel" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HorizontalContentBlock}}, Path=Tag}"  Width="Auto" FontFamily="{StaticResource SquareFont}" Margin="5,0,0,0" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
+                        <Border Background="White" CornerRadius="5"  MinHeight ="20" Height="Auto" Grid.Column="1" Margin="5">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!--VERTICAL CONTENT BLOCK-->
+    <Style TargetType="{x:Type local:VerticalContentBlock}">
+        <Setter Property="Background" Value="{StaticResource Col_LightBlack}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VerticalContentBlock}">
+                    <Grid Height="Auto">
+                        <Grid.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+                        </Grid.OpacityMask>
+                        <Border x:Name="Border1" CornerRadius="5" Margin="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Background="{TemplateBinding Background}"/>
+                        <TextBlock VerticalAlignment="Top" Margin="0,0,0,0" FontSize="16" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="{StaticResource SquareFont}" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticalContentBlock}}, Path=Tag}"  Grid.Column="0" TextAlignment="Center" Foreground="White"/>
+                        <Border Background="White" CornerRadius="5" Grid.Column="1" Margin="5,17,5,5" Grid.ColumnSpan="4">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!--TEXTFIELD CONTENT BLOCK-->
+    <Style TargetType="{x:Type local:TextFieldContentBlock}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Col_LightBlack}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TextFieldContentBlock}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border x:Name="Border2" CornerRadius="5" Margin="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                        </Border>
+                        <ContentPresenter Content="{TemplateBinding Content}" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                        <TextBlock Margin="5,0,0,0" Grid.Column="1" Grid.Row="1" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TextFieldContentBlock}}, Path=Tag}" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Foreground="{StaticResource Col_LightBlack}"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
 
 
 

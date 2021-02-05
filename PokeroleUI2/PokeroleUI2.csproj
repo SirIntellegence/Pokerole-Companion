@@ -87,12 +87,37 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoxAbilitySelector.xaml.cs">
+      <DependentUpon>BoxAbilitySelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses\BackpackData.cs" />
+    <Compile Include="DexAbilitySelector.xaml.cs">
+      <DependentUpon>DexAbilitySelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Databases\AbilitiesDesc.cs">
+      <DependentUpon>PokedexDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Databases\ImagePath.cs">
       <DependentUpon>PokedexDBModel.tt</DependentUpon>
     </Compile>
@@ -128,10 +153,21 @@
       <DependentUpon>PokedexDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataClasses\ActiveDataManager.cs" />
+    <Compile Include="FooterAbilityDisplay.xaml.cs">
+      <DependentUpon>FooterAbilityDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HorizontalContentBlock.cs" />
+    <Compile Include="FooterMoveDisplay.xaml.cs">
+      <DependentUpon>FooterMoveDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextFieldContentBlock.cs" />
+    <Compile Include="TrainerStatDisplay.xaml.cs">
+      <DependentUpon>TrainerStatDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilityClasses\DataSerializer.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="DataClasses\LearnsetData.cs" />
     <Compile Include="DataClasses\MoveData.cs" />
-    <Compile Include="DataClasses\PkmnStringStat.cs" />
     <Compile Include="MoveShort.xaml.cs">
       <DependentUpon>MoveShort.xaml</DependentUpon>
     </Compile>
@@ -141,21 +177,27 @@
     <Compile Include="DataClasses\ListData.cs" />
     <Compile Include="DataClasses\PkmnSimpleStat.cs" />
     <Compile Include="DataClasses\PkmnStatCollection.cs" />
-    <Compile Include="PokemonBanner.xaml.cs">
-      <DependentUpon>PokemonBanner.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataClasses\PokemonData.cs" />
-    <Compile Include="DataClasses\PokemonUtils.cs" />
+    <Compile Include="UtilityClasses\PokemonUtils.cs" />
     <Compile Include="RankControl.xaml.cs">
       <DependentUpon>RankControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatDots.xaml.cs">
       <DependentUpon>StatDots.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextFieldControl.xaml.cs">
-      <DependentUpon>TextFieldControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataClasses\TrainerData.cs" />
+    <Compile Include="TrainerSerializationControl.xaml.cs">
+      <DependentUpon>TrainerSerializationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VerticalContentBlock.cs" />
+    <Page Include="BoxAbilitySelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DexAbilitySelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="boxMovesDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +219,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="dexStatDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FooterAbilityDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FooterMoveDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,10 +273,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PokemonBanner.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="RankControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,7 +281,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TextFieldControl.xaml">
+    <Page Include="TrainerSerializationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrainerStatDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,7 +316,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PokedexDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Databases\PokedexDB.db" />
+    <None Include="Databases\PokedexDB.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Databases\PokedexDBModel.edmx.diagram">
       <DependentUpon>PokedexDBModel.edmx</DependentUpon>
     </None>
@@ -302,6 +354,16 @@
       <DependentUpon>PokedexDBModel.edmx</DependentUpon>
       <LastGenOutput>PokedexDBModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Graphics\Icons\Rank_Ace.png" />
+    <Resource Include="Graphics\Icons\Rank_Amateur.png" />
+    <Resource Include="Graphics\Icons\Rank_Beginner.png" />
+    <Resource Include="Graphics\Icons\Rank_Champion.png" />
+    <Resource Include="Graphics\Icons\Rank_Master.png" />
+    <Resource Include="Graphics\Icons\Rank_Pro.png" />
+    <Resource Include="Graphics\Icons\Rank_Starter.png" />
+    <Resource Include="Graphics\Icons\Category_Physical.png" />
+    <Resource Include="Graphics\Icons\Category_Special.png" />
+    <Resource Include="Graphics\Icons\Category_Support.png" />
     <Resource Include="Graphics\Sprites\FullRes\001_Bulbasaur_Dream.png" />
     <Resource Include="Graphics\Sprites\FullRes\001_Bulbasaur_Dream_2.png" />
     <Resource Include="Graphics\Sprites\FullRes\002_Ivysaur_Dream.png" />

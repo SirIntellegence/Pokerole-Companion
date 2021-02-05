@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.TrainerSerializationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="LoadButton" Content="Load Trainer" Grid.Row="0" HorizontalAlignment="Left" Width="100" Click="LoadButton_Click"/>
+        <Button x:Name="SaveButton" Content="Save Trainer" Grid.Row="2" Click="SaveButton_Click"/>
+
+    </Grid>
+</UserControl>

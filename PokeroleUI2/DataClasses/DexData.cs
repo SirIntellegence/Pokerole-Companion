@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using PokeroleUI2.Databases;
 
 namespace PokeroleUI2
@@ -14,6 +15,8 @@ namespace PokeroleUI2
         public string DexID { get { return listData.DexID; } }
         public string Name { get { return listData.Name; } }
         public string Type1 { get { return listData.Type1; } }
+        public Brush typebrush1 { get { return PokemonUtils.GetTypeColour(Type1); } }
+        public Brush typebrush2 { get { return PokemonUtils.GetTypeColour(Type2); } }
         public string Type2 { get { return listData.Type2; } }
         public string Rank { get { return listData.Rank; } }
 
@@ -69,6 +72,7 @@ namespace PokeroleUI2
                 string a4 = AbilityData.ABILITY4;
 
                 Abilities = new List<string> { a1, a2, a3, a4 };
+                Abilities.RemoveAll(item => item == null);
             }
         }
 

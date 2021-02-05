@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,37 +20,54 @@ namespace PokeroleUI2.Controls
     /// <summary>
     /// Interaction logic for HPControl.xaml
     /// </summary>
-    public partial class SimpleStatSliderControl : UserControl
+    public partial class SimpleStatSliderControl : UserControl, INotifyPropertyChanged
     {
-        public string statTitle { get; set; }
-        public PokemonData pd;
-        public PkmnSimpleStat ss;
+        public string statName { get; set; }
+
+        private PkmnSimpleStat _simpleStat;
+        public PkmnSimpleStat SimpleStat
+        {
+            get { return _simpleStat; }
+            set
+            {
+                _simpleStat = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         public SimpleStatSliderControl()
         {
             this.DataContext = this;
             InitializeComponent();
         }
 
-        public void Update(PokemonData pd, PkmnSimpleStat ss)
+        public void Update(PkmnSimpleStat ss)
         {
-            textTitle.Text = statTitle;
-            this.pd = pd;
-            this.ss = ss;
-            Update();
-        }
-
-        public void Update()
-        {
-            SimpleStatSlider.Minimum = 0;
+            if(ss == null)
+            {
+                contentBlock.Tag = "";
+                SimpleStatSlider.Value = 0;
+                SimpleStatSlider.Maximum = 0;
+                return;
+            }
+            this.SimpleStat = ss;
+            contentBlock.Tag = statName + ": " + SimpleStat.Value.ToString();
             SimpleStatSlider.Maximum = ss.Max;
-            textValue.Text = ss.Value.ToString();
             SimpleStatSlider.Value = ss.Value;
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ss.Value = (int)SimpleStatSlider.Value;
-            textValue.Text = ss.Value.ToString();
+            if(SimpleStat == null) { return; }
+            SimpleStat.Value = (int)SimpleStatSlider.Value;
+            contentBlock.Tag = statName + ": " + SimpleStat.Value.ToString();
         }
     }
 }

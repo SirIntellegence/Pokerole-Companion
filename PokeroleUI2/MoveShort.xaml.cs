@@ -24,16 +24,20 @@ namespace PokeroleUI2.Controls
 
     public partial class MoveShort : UserControl
     {
+        private MainWindow mainwindow;
+        public ActiveDataManager dataManager;
 
         public int slotIndex;
-        public PokemonData pd;
+        public PokemonData pd { get { return dataManager.ActiveBox; } set { dataManager.ActiveBox = value; } }
         public MoveData md;
 
 
         public MoveShort(int i, PokemonData pd)
         {
+            mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
+            dataManager = mainwindow.dataManager;
+
             InitializeComponent();
-            this.pd = pd;
             slotIndex = i;
             Update();
         }
@@ -43,29 +47,25 @@ namespace PokeroleUI2.Controls
             InitializeComponent();
         }
 
-        public void Update(PokemonData p)
-        {
-            pd = p;
-            Update();
-        }
-
         public void Update()
         {
-            md = pd.Moves[slotIndex];
+            md = pd.LearnSet.GetByName(pd.Moves[slotIndex]);
 
             textName.Text = md.Name;
             textPower.Text = md.Power;
             textType.Text = md.Type;
-            textCategory.Text = md.Category;
+
+            Brush typebrush = PokemonUtils.GetTypeColour(md.Type);
+            rectBackground.Fill = typebrush;
+            imageCat.Source = PokemonUtils.GetCategoryImage(md.Category);
+
             int power = 0;
             int.TryParse(md.Power, out power);
             int damagestat = pd.Attributes.GetStatByTag(md.PowerStat).Value + power;
-            textDamage.Text = damagestat.ToString();
 
             int accstat1 = pd.Attributes.GetStatByTag(md.AccuracyStat1).Value;
             int accstat2 = pd.Skills.GetStatByTag(md.AccuracyStat2).Value;
 
-            textAccuracy.Text = (accstat1 + accstat2).ToString();
 
             moveSelector.ItemsSource = pd.LearnSet.learnset;
 
@@ -73,8 +73,15 @@ namespace PokeroleUI2.Controls
 
         private void MoveSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pd.Moves[slotIndex] = (MoveData)moveSelector.SelectedItem;
+            MoveData m = (MoveData)moveSelector.SelectedItem;
+            if(m == null) { return; } //Apparently this can fucking happen...
+            pd.Moves[slotIndex] = m.Name;
             Update();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(md != null && pd != null) { dataManager.ActiveBoxMoveData = md; }            
         }
     }
 }

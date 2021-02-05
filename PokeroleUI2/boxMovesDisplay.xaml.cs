@@ -23,7 +23,8 @@ namespace PokeroleUI2.Controls
         private MainWindow mainwindow;
         public ActiveDataManager dataManager;
 
-        public PokemonData pd;
+        public PokemonData pd { get { return dataManager.ActiveBox; } }
+
         public List<MoveShort> moveShorts;
         public boxMovesDisplay()
         {
@@ -35,24 +36,17 @@ namespace PokeroleUI2.Controls
 
         void OnBoxChanged(object sender, EventArgs e)
         {
-            pd = dataManager.ActiveBox;
+            if (pd == null)
+            {
+                MovesStack.Children.Clear();
+                return;
+            }
             Update();
         }
-
-        public void Update(PokemonData pd)
-        {
-            this.pd = pd;
-            Update();
-        }
-
 
 
         public void Update()
         {
-            if(pd == null)
-            {
-                return;
-            }
             MovesStack.Children.Clear();
             moveShorts = new List<MoveShort>();
             for(int i = 0; i < pd.Moves.Count; i++)

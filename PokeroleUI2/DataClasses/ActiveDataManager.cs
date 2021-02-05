@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -51,30 +52,91 @@ namespace PokeroleUI2
                 }
             }
         }
-        private MoveData _activeMoveData;
-        public MoveData ActiveMoveData
+        private MoveData _activeDexMoveData;
+        public MoveData ActiveDexMoveData
         {
-            get { return _activeMoveData; }
+            get { return _activeDexMoveData; }
             set
             {
-                if (_activeMoveData != value)
+                DexMoveAbilityToggle = true;
+                if (_activeDexMoveData != value)
                 {
-                    _activeMoveData = value;
-                    OnMoveChanged();
+                    _activeDexMoveData = value;
+                    OnDexMoveChanged();
                 }
             }
         }
 
-        private AbilityData _activeAbilityData;
-        public AbilityData ActiveAbilityData
+        private MoveData _activeBoxMoveData;
+        public MoveData ActiveBoxMoveData
         {
-            get { return _activeAbilityData; }
+            get { return _activeBoxMoveData; }
             set
             {
-                if (_activeAbilityData != value)
+                BoxMoveAbilityToggle = true;
+                if (_activeBoxMoveData != value)
                 {
-                    _activeAbilityData = value;
-                    OnAbilityChanged();
+                    _activeBoxMoveData = value;
+                    OnBoxMoveChanged();
+                }
+            }
+        }
+
+        private AbilityData _activeDexAbility;
+        public AbilityData ActiveDexAbility
+        {
+            get { return _activeDexAbility; }
+            set
+            {
+                DexMoveAbilityToggle = false;
+                if (_activeDexAbility != value)
+                {
+                    _activeDexAbility = value;
+                    OnDexAbilityChanged();
+                }
+            }
+        }
+
+        private AbilityData _activeBoxAbility;
+        public AbilityData ActiveBoxAbility
+        {
+            get { return _activeBoxAbility; }
+            set
+            {
+                BoxMoveAbilityToggle = false;
+                if (_activeBoxAbility != value)
+                {
+                    _activeBoxAbility = value;
+                    OnBoxAbilityChanged();
+                }
+            }
+        }
+
+        public bool _boxMoveAbilityToggle;
+        public bool BoxMoveAbilityToggle //true is move, false is ability
+        {
+            get { return _boxMoveAbilityToggle; }
+            set
+            {
+                
+                if (_boxMoveAbilityToggle != value)
+                {
+                    _boxMoveAbilityToggle = value;
+                    OnBoxMoveAbilityToggled();
+                }
+            }
+        }
+
+        public bool _dexMoveAbilityToggle;
+        public bool DexMoveAbilityToggle //true is move, false is ability
+        {
+            get { return _dexMoveAbilityToggle; }
+            set
+            {
+                if (_dexMoveAbilityToggle != value)
+                {
+                    _dexMoveAbilityToggle = value;
+                    OnDexMoveAbilityToggled();
                 }
             }
         }
@@ -84,6 +146,16 @@ namespace PokeroleUI2
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler DexMoveAbilityToggled;
+        private void OnDexMoveAbilityToggled([CallerMemberName] string propertyName = null)
+        {
+            DexMoveAbilityToggled?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler BoxMoveAbilityToggled;
+        private void OnBoxMoveAbilityToggled([CallerMemberName] string propertyName = null)
+        {
+            BoxMoveAbilityToggled?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public event PropertyChangedEventHandler TrainerChanged;
         private void OnTrainerChanged([CallerMemberName] string propertyName = null)
@@ -100,15 +172,27 @@ namespace PokeroleUI2
         {
             DexChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public event PropertyChangedEventHandler MoveChanged;
-        private void OnMoveChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler DexMoveChanged;
+        private void OnDexMoveChanged([CallerMemberName] string propertyName = null)
         {
-            MoveChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            DexMoveChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public event PropertyChangedEventHandler AbilityChanged;
-        private void OnAbilityChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler BoxMoveChanged;
+        private void OnBoxMoveChanged([CallerMemberName] string propertyName = null)
         {
-            AbilityChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            BoxMoveChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler DexAbilityChanged;
+        private void OnDexAbilityChanged([CallerMemberName] string propertyName = null)
+        {
+            DexAbilityChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler BoxAbilityChanged;
+        private void OnBoxAbilityChanged([CallerMemberName] string propertyName = null)
+        {
+            BoxAbilityChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 

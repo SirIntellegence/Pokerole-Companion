@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PokeroleUI2
 {
@@ -12,39 +13,76 @@ namespace PokeroleUI2
         public int AvailablePoints { get { return MaxPoints - SpentPoints; } }
         public int MaxPoints;
 
+        [XmlIgnoreAttribute]
+        private Dictionary<string, PkmnStat> _stats;
+        [XmlIgnoreAttribute]
+        public Dictionary<string, PkmnStat> Stats {
+            get {
+                if (_stats == null) {
+                    _stats = FromList(StatList);
+                }
+                return _stats;
+            }
+            set
+            {
+                _stats = value;
+            }
+        }
+
+        public List<PkmnStat> StatList;
+
         public bool CanSpendPoints { get { return SpentPoints < MaxPoints; } }
-        public List<PkmnStat> Stats;
+
+        public PkmnStatCollection() { }
 
         public PkmnStatCollection(List<PkmnStat> stats, int maxpoints, int spentpoints)
         {
-            Stats = stats;
+            StatList = stats;
+            MaxPoints = maxpoints;
+            SpentPoints = spentpoints;
+            Stats = FromList(stats);
+        }
+
+        public Dictionary<string, PkmnStat> FromList(List<PkmnStat> stats)
+        {
+            Dictionary<string, PkmnStat> statdict = new Dictionary<string, PkmnStat>();
+            foreach (PkmnStat s in stats)
+            {
+                statdict.Add(s.tag, s);
+            }
+            return statdict;
         }
 
         public PkmnStatCollection DeepCopy()
         {
             PkmnStatCollection other = (PkmnStatCollection)this.MemberwiseClone();
-            List<PkmnStat> stats = new List<PkmnStat>();
-            foreach (PkmnStat s in Stats)
+            Dictionary<string, PkmnStat> stats = new Dictionary<string, PkmnStat>();
+            foreach (KeyValuePair<string, PkmnStat> kvp in Stats)
             {
-                stats.Add(s.ShallowCopy());
+                stats.Add(kvp.Key, kvp.Value.ShallowCopy());
+            }
+            List<PkmnStat> statlist = new List<PkmnStat>();
+            foreach(PkmnStat stat in other.StatList)
+            {
+                statlist.Add(stat.ShallowCopy());
             }
             other.Stats = stats;
             return other;
         }
 
         public void SetAllMax(int i) {
-            foreach(PkmnStat s in Stats)
+            foreach (KeyValuePair<string, PkmnStat> kvp in Stats)
             {
-                s.SetMax(i);
+                kvp.Value.SetMax(i);
             }
         }
 
         public int GetSpentPoints() //this should just be used if we need to do anything weird with loading spent points
         {
             int spentpoints = 0;
-            foreach (PkmnStat stat in Stats)
+            foreach (KeyValuePair<string, PkmnStat> kvp in Stats)
             {
-                spentpoints += stat.AddVal;
+                spentpoints += kvp.Value.AddVal;
             }
             return spentpoints;
         }
@@ -56,13 +94,11 @@ namespace PokeroleUI2
                 return new PkmnStat("NULLSTAT", 0, 0);
             }
 
-            foreach (PkmnStat stat in Stats)
-            {
-                if (stat.tag.ToLower() == tag.ToLower())
-                {
-                    return stat;
-                }
-            }
+            PkmnStat stat;
+            Stats.TryGetValue(tag, out stat);
+
+            if(stat != null) { return stat; }
+
             return new PkmnStat("NULLSTAT", 0, 0);
         }
 
@@ -78,7 +114,8 @@ namespace PokeroleUI2
             {
                 return;
             }
-            if (!Stats.Contains(stat)) { return; }
+            
+            if (!Stats.ContainsValue(stat)) { return; }
             SpentPoints += stat.Adjust(p); //adjust will return the actual value so we'll not spend points if something went wrong
         }
     }

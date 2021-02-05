@@ -1,0 +1,247 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             xmlns:uc="clr-namespace:PokeroleUI2.Controls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PokeroleUI2.Controls.TrainerStatDisplay"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             >
+    <Grid x:Name="MainGrid"  Background="Beige" Visibility="Visible" >
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+        </Grid.OpacityMask>
+        <Grid.RowDefinitions>
+            <!--HeaderRow-->
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="2.2*"/>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="Border1" CornerRadius="20,20,20,20" Margin="1" Grid.RowSpan="10" Grid.ColumnSpan="5" Background="Gray"/>
+        <Rectangle x:Name="rectBackground" Fill="{Binding trainerData.displayBrush, Mode=OneWay}" Grid.RowSpan="10" Grid.ColumnSpan="5"/>
+        <Rectangle Fill="#33ffffff" Grid.RowSpan="10" Grid.ColumnSpan="5"/>
+
+        <!---Header-->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="{Binding trainerData.displayBrush, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+
+            <local:TextFieldContentBlock Tag="Name" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="200" HorizontalAlignment="Left" Margin="12,0,0,0" >
+                <TextBox x:Name="textName" Text="{Binding trainerData.Name, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+            </local:TextFieldContentBlock>
+        </Grid>
+
+        <!--AttributeStack-->
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
+            <TextBlock><Run Text="Attribute Points:" FontFamily="{DynamicResource SquareFont}"/><Run Text=" "/><Run x:Name = "textAttributePoints" Text="0" FontFamily="{DynamicResource SquareFont}"/></TextBlock>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Strength" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="STRDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Dexterity" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="DEXDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}" Height="Auto">
+                <WrapPanel>
+                    <TextBlock Text="Vitality" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="VITDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+
+            <Border Background="{StaticResource Col_Attributes}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Insight" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="INSDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+
+        </StackPanel>
+        <!--SocialStack-->
+        <StackPanel Grid.ColumnSpan="1" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" x:Name="SocialDotPanel">
+            <TextBlock FontFamily="{DynamicResource SquareFont}"><Run Text="Social Attribute Points:"/><Run Text=" "/><Run x:Name = "textSocialPoints" Text="0"/></TextBlock>
+            <Border Background="{StaticResource Col_AttributesTough}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Tough" Width="50" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="TOUDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_AttributesCool}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Cool" Width="50" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="COODots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_AttributesBeauty}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}" Height="Auto">
+                <WrapPanel>
+                    <TextBlock Text="Beauty" Width="50" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="BEADots"  Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_AttributesClever}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Clever" Width="50" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="CLEDots"  Margin="3"/>
+                </WrapPanel>
+            </Border>
+            <Border Background="{StaticResource Col_AttributesCute}" CornerRadius="5" Margin="1" BorderThickness="2" BorderBrush="{StaticResource Col_LightBlack}">
+                <WrapPanel>
+                    <TextBlock Text="Cute" Width="50" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <uc:StatDots  x:Name="CUTDots" Margin="3"/>
+                </WrapPanel>
+            </Border>
+        </StackPanel>
+        <TextBlock FontFamily="{DynamicResource SquareFont}" Grid.ColumnSpan="1" Grid.Column="4" Grid.Row="1" Margin="5"><Run Text="Skill Points:"/><Run Text=" "/><Run x:Name = "textSkillPoints" Text="0"/></TextBlock>
+
+        <!--SkillStack-->
+        <Border Background="{StaticResource Col_StatsBackRed}" Grid.ColumnSpan="1" Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" CornerRadius="8" BorderThickness="2" Margin="3,18,3,3" Height="Auto">
+            <StackPanel   x:Name="SkillDotPanel" Margin="5">
+                <WrapPanel>
+                    <TextBlock Text="Brawl" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="BRAWLDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Throw" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="THROWDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Evasion" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="EVADEDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Weapons" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="WEAPODots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Alert" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="ALERTDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Athletic" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="ATHLEDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Nature" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="NATURDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Stealth" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="STEALDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Allure" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="ALLURDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Etiquette" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="ETIQUDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Intimidate" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="INTIMDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Perform" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="PERFODots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Crafts" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="CRAFTDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Lore" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="LOREDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Medicine" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="MEDICDots"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Science" Width="60" FontFamily="{StaticResource SquareFont}" FontSize="12" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="White"/>
+                    <uc:StatDots x:Name="SCIENDots"/>
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+
+        <!--LeftBlock-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <local:VerticalContentBlock Tag="Rank" Grid.Column="0" Grid.Row="0" Margin="0" Background="{StaticResource Col_LightBlack}">
+                <uc:RankControl x:Name="rankControl"  Margin="0,0,0,0" Rank="{Binding trainerData.Rank, Mode=TwoWay}"/>
+            </local:VerticalContentBlock>
+
+            <local:TextFieldContentBlock Tag="Nature" Grid.Column="1" Grid.Row="0" >
+                <TextBox x:Name="textNature" Text="{Binding trainerData.Nature, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Confidence" Grid.Column="1" Grid.Row="1" >
+                <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Confidence, Mode=TwoWay}" BorderBrush="{x:Null}" Margin="2,2,2,2" VerticalAlignment="Center"/>
+            </local:TextFieldContentBlock>
+
+            <local:TextFieldContentBlock Tag="Age" Grid.Column="0" Grid.Row="1" >
+                <xctk:IntegerUpDown HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Age, Mode=TwoWay}" BorderBrush="{x:Null}"/>
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Money" Grid.Column="0" Grid.Row="2" >
+                <WrapPanel VerticalAlignment="Center" Margin="2,2,2,2" HorizontalAlignment="Right">
+                    <TextBlock Text="₽" FontFamily="{StaticResource Bliss}" FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
+                    <xctk:DecimalUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Money, Mode=TwoWay}" BorderBrush="{x:Null}"/>
+                </WrapPanel>
+            </local:TextFieldContentBlock>
+            <local:TextFieldContentBlock Tag="Caught/Seen" Grid.Column="1" Grid.Row="2" >
+                <WrapPanel VerticalAlignment="Center" Margin="2,2,2,2" HorizontalAlignment="Center">
+                    <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Caught, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Left" ShowButtonSpinner="False"/>
+                    <TextBlock Text="/" FontFamily="{StaticResource Bliss}" FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
+                    <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Seen, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Right" ShowButtonSpinner="False"/>
+                </WrapPanel>
+            </local:TextFieldContentBlock>
+        </Grid>
+
+        <!--MidBlock-->
+        <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="90"/>
+            </Grid.RowDefinitions>
+            <uc:SimpleStatSliderControl x:Name="hpControl" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" statName="HP"/>
+            <uc:SimpleStatSliderControl x:Name="willControl" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" statName="Will"/>
+
+            <local:TextFieldContentBlock Tag="Rank Achievements" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+            </local:TextFieldContentBlock>
+        </Grid>
+        <Rectangle x:Name="ImageBack" Fill="AliceBlue" Margin="0,0,0,0" Grid.Row="1"/>
+        <Image x:Name="ImageDisplay" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
+
+    </Grid>
+</UserControl>

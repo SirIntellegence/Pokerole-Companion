@@ -18,6 +18,18 @@ namespace PokeroleUI2
             PopulateData(maxrank);
         }
 
+        public MoveData GetByName(string n)
+        {
+            foreach(MoveData m in learnset)
+            {
+                if(n == m.Name)
+                {
+                    return m;
+                }
+            }
+            return null;
+        }
+
         private void PopulateData(int maxrank = 10)
         {
             learnset = new List<MoveData>();

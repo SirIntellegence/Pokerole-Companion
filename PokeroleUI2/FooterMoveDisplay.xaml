@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.FooterMoveDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             mc:Ignorable="d" 
+             d:DesignHeight="120" d:DesignWidth="800"
+             >
+    <Grid>
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Border1}"/>
+        </Grid.OpacityMask>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="68.1"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="Border1" CornerRadius="20" Margin="1" Grid.RowSpan="3" Grid.ColumnSpan="5" Background="Gray"/>
+        <Rectangle x:Name="rectBackground"  Fill="{Binding Path=moveData.typebrush, Mode=OneWay}" Grid.RowSpan="3" Grid.ColumnSpan="5"/>
+        <!--Name Display-->
+        <Rectangle Fill="#33ffffff" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
+        <TextBlock x:Name="textName" Margin="20,0,0,0" Text="{Binding Path=moveData.Name, Mode=OneWay}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" FontSize="22" Foreground="White"/>
+        <!--Power Display-->
+        <Rectangle Fill="#66000000" Grid.Row="0" Grid.Column="1"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" LineHeight="8">
+            <Run Text="Power" FontFamily="{StaticResource SquareFont}" Foreground="White" FontSize="14"/>
+            <LineBreak/>
+            <Run x:Name="textPower"  Text="{Binding Path=moveData.Power, Mode=OneWay}" FontFamily="{StaticResource SquareFont}" Foreground="White" FontSize="22"/>
+        </TextBlock>
+        <!--Cat Display-->
+        <Image x:Name="imageCat" Grid.Row="0" Grid.Column="2" Source="{Binding Path=moveData.CatImg, Mode=OneWay}"/>
+        <!--Type  Display-->
+        <Rectangle x:Name="rectType" Fill="{Binding Path=moveData.typebrush, Mode=OneWay}" Grid.Row="0" Grid.Column="3"/>
+        <TextBlock x:Name="textType" Grid.Row="0" Grid.Column="3" Text="{Binding Path=moveData.Type, Mode=OneWay}" FontFamily="{StaticResource Bliss}" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+        <!--Effect Display-->
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" TextAlignment="Left" Margin="20,5,0,5" FontFamily="{StaticResource SquareFont}" Foreground="White" TextWrapping="Wrap">
+            <Run Text="Accuracy:"/>
+            <Run x:Name = "textAccuracy"  Text="{Binding Path=moveData.AccuracyString, Mode=OneWay}" FontFamily="{StaticResource Bliss}"/>
+            <LineBreak/>
+            <Run Text="Damage Pool:"/>
+            <Run x:Name = "textDamage"  Text="{Binding Path=moveData.DamageString, Mode=OneWay}" FontFamily="{StaticResource Bliss}"/>
+            <LineBreak/>
+            <Run Text="Added Effect:"/>
+            <Run x:Name = "textEffect"  Text="{Binding Path=moveData.Effect, Mode=OneWay}" FontFamily="{StaticResource Bliss}"/>
+        </TextBlock>
+
+        <!--Future Desc display-->
+        <Rectangle Fill="#33000000" Grid.Row="2" Grid.ColumnSpan="4"/>
+
+
+
+
+    </Grid>
+
+</UserControl>

@@ -46,29 +46,9 @@ namespace PokeroleUI2.Controls
             dexGrid.ItemsSource = data;
         }
 
-        private void RaiseDexSelection(ListData selection)
-        {
-            if (this.DexSelection != null)
-            {
-                this.DexSelection(this, new DexSelectionArgs(selection));
-            }
-        }
-
         private void DexGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RaiseDexSelection((ListData)dexGrid.SelectedItem);
             dataManager.ActiveDex = new DexData((ListData)dexGrid.SelectedItem);
-        }
-    }
-
-    public class DexSelectionArgs : EventArgs
-    {
-        private readonly DexData _dexData;
-        public DexData dexData { get { return _dexData; } }
-
-        public DexSelectionArgs(ListData dd)
-        {
-            _dexData = new DexData(dd);
         }
     }
 }
