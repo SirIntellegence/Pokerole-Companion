@@ -1,5 +1,4 @@
-﻿using PokeroleUI2.Databases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +8,14 @@ namespace PokeroleUI2
 {
     public class LearnsetData
     {
-        public int PokemonID;
+        public List<string> learnsetStrings { get; set; }
         public List<MoveData> learnset { get; set; }
 
-        public LearnsetData(int ID, int maxrank = 10)
+        public LearnsetData(List<string> moves, int maxrank = 10)
         {
-            PokemonID = ID;
+            learnsetStrings = moves;
             PopulateData(maxrank);
+            
         }
 
         public MoveData GetByName(string n)
@@ -31,6 +31,21 @@ namespace PokeroleUI2
         }
 
         private void PopulateData(int maxrank = 10)
+        {
+            learnset = new List<MoveData>();
+
+            for (int i = 0; i < learnsetStrings.Count; i+=2)
+            {
+                int rank = 0;
+                string movename = learnsetStrings[i];
+                int.TryParse(learnsetStrings[i + 1], out rank);
+                MoveData md = DataSerializer.LoadMoveData(movename);
+                md.SetRank(rank);
+                learnset.Add(md);
+            }
+        }
+
+/*        private void PopulateData(int maxrank = 10)
         {
             learnset = new List<MoveData>();
             using (var db = new PokedexDBEntities())
@@ -55,5 +70,6 @@ namespace PokeroleUI2
                 }
             }
         }
+        */
     }
 }

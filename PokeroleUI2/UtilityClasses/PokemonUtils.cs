@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
-using PokeroleUI2.Databases;
 using System.Windows.Media;
 
 namespace PokeroleUI2
@@ -128,51 +127,8 @@ namespace PokeroleUI2
             return Math.Min(rank + 1, 5);
         }
 
-        public static string GetPkmnImagePath(string dexID)
+        public static BitmapImage GetPkmnImage(string filename)
         {
-            string filename = "001_Bulbasaur_Dream.png";
-            using (var db = new PokedexDBEntities())
-            {
-                var imageData = (from d in db.ImagePaths
-                                 where d.DexID == dexID
-                                 select d).SingleOrDefault();
-
-                if(imageData == null)
-                {
-                    return filename;
-                }
-                string[] filenames = imageData.FullPaths.Split(',');
-                if (!String.IsNullOrEmpty(filenames[0])) { filename = filenames[0]; }
-
-                if (imageData == null)
-                {
-                    throw new System.ArgumentException("Parameter cannot be null", "Images at ID#" + dexID);
-                }
-            }
-            return filename;
-        }
-
-        public static BitmapImage GetPkmnImage(string dexID)
-        {
-            string filename = "001_Bulbasaur_Dream.png";
-            using (var db = new PokedexDBEntities())
-            {
-                var imageData = (from d in db.ImagePaths
-                                 where d.DexID == dexID
-                                 select d).SingleOrDefault();
-
-                if (imageData == null)
-                {
-                    return new BitmapImage();
-                }
-                string[] filenames = imageData.FullPaths.Split(',');
-                if (!String.IsNullOrEmpty(filenames[0])) { filename = filenames[0]; }
-
-                if (imageData == null)
-                {
-                    throw new System.ArgumentException("Parameter cannot be null", "Images at ID#" + dexID);
-                }
-            }
             return new BitmapImage(new Uri("pack://application:,,,/Graphics/Sprites/FullRes/" + filename) );
         }
 

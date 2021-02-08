@@ -35,20 +35,32 @@ namespace PokeroleUI2.Controls
 
             InitializeComponent();
 
-            data = new ObservableCollection<ListData>();
-            int numberDisplayed = 500;
-            for (int i = 1; i < numberDisplayed; i++)
-            {
-                ListData ld = new ListData(i);
-                data.Add(ld);
-            }
-
+            data = DataSerializer.LoadAllListData();
             dexGrid.ItemsSource = data;
         }
 
         private void DexGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dataManager.ActiveDex = new DexData((ListData)dexGrid.SelectedItem);
+            ListData selected = (ListData)dexGrid.SelectedItem;
+            dataManager.ActiveDex = DataSerializer.LoadDexData(selected.ID);
         }
+        /*
+        private void CSVSerialize_Click(object sender, RoutedEventArgs e)
+        {
+            List<DexData> AllData = new List<DexData>();
+            foreach(ListData ld in data)
+            {
+                AllData.Add(new DexData(ld));
+            }
+            //DataSerializer.SaveDexData("../DataSources/dex.csv", AllData);
+        }
+
+        private void CSVDeserialize_Click(object sender, RoutedEventArgs e)
+        {
+            data = DataSerializer.LoadListData("../DataSources/dex.csv");
+            dexGrid.ItemsSource = data;
+        }
+        */
+
     }
 }

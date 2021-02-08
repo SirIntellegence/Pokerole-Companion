@@ -29,7 +29,7 @@
                                         <Setter Property="CornerRadius" Value="5"/>
                                     </Style>
                                 </Button.Resources>
-                                <TextBlock Text="{Binding Path=name}" FontFamily="{StaticResource Bliss}" FontSize="14"/>
+                                <TextBlock Text="{Binding Path=Name}" FontFamily="{StaticResource Bliss}" FontSize="14"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

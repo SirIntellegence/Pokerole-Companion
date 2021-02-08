@@ -1,5 +1,4 @@
-﻿using PokeroleUI2.Databases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace PokeroleUI2
         [XmlIgnoreAttribute]
         public DexData DexData {
             get { if(_dexData == null){
-                    _dexData = new DexData(new ListData(PokemonID));
+                    _dexData = DataSerializer.LoadDexData(PokemonID);
                 }
                 return _dexData;
             }
@@ -90,7 +89,7 @@ namespace PokeroleUI2
         {
             get
             {
-                if (_learnSet == null) { _learnSet = new LearnsetData(PokemonID, Rank); }
+                if (_learnSet == null) { _learnSet = new LearnsetData(Moves, Rank); }
                 return _learnSet;        
             }
             set
@@ -168,7 +167,7 @@ namespace PokeroleUI2
             Skills.SetAllMax(PokemonUtils.GetSkillCap(Rank));
             HP.Max = HP.BaseVal + Attributes.GetStatByTag("Vitality").Value;
             Will.Max = Attributes.GetStatByTag("Insight").Value + 2;
-            LearnSet = new LearnsetData(PokemonID, Rank);
+            LearnSet = new LearnsetData(DexData.Learnset, Rank);
             ReLengthMovesList();
         }
 

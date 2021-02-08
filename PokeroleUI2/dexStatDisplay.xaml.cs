@@ -71,7 +71,7 @@ namespace PokeroleUI2.Controls
             VITDots.SetStats(dexData.Attributes.GetStatByTag("Vitality"), false);
             SPEDots.SetStats(dexData.Attributes.GetStatByTag("Special"), false);
             INSDots.SetStats(dexData.Attributes.GetStatByTag("Insight"), false);
-            ImageDisplay.Source = PokemonUtils.GetPkmnImage(dexData.DexID);
+            ImageDisplay.Source = PokemonUtils.GetPkmnImage(dexData.ImagePath);
         }
     }
 }

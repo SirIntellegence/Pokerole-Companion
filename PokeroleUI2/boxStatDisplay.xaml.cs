@@ -159,7 +159,7 @@ namespace PokeroleUI2.Controls
                 ImageDisplay.Source = null;
                 return;
             }
-            ImageDisplay.Source = PokemonUtils.GetPkmnImage(pokemonData.dexID); ;
+            ImageDisplay.Source = PokemonUtils.GetPkmnImage(pokemonData.DexData.ImagePath);
     }
 
 

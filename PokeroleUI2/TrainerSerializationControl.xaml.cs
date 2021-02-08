@@ -33,14 +33,12 @@ namespace PokeroleUI2.Controls
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Uri uri = new Uri("pack://application:,,,/SaveData/trainer.xml");
 
             DataSerializer.Save(dataManager.ActiveTrainer, "../SaveData/trainer.xml", dataManager.ActiveTrainer.GetType());
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            Uri uri = new Uri("pack://application:,,,/SaveData/trainer.xml");
             TrainerData trainer = (TrainerData)DataSerializer.Load("../SaveData/trainer.xml", dataManager.ActiveTrainer.GetType());
             dataManager.ActiveBox = null;
             dataManager.ActiveTrainer = trainer;

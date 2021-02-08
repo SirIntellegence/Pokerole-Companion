@@ -47,7 +47,7 @@ namespace PokeroleUI2.Controls
 
         public void Update(int ID)
         {
-            learnData = new LearnsetData(ID);
+            learnData = new LearnsetData(dataManager.ActiveDex.Learnset);
             data = new ObservableCollection<MoveData>(learnData.learnset);
             MoveGrid.ItemsSource = data;
         }
