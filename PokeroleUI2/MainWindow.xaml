@@ -66,10 +66,10 @@
             <TabItem x:Name="trainerTab" Header="Trainer Card">
                 <Grid Background="#FFFFFFFF">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="150"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <uc:TrainerSerializationControl/>
+                    <uc:TrainerSelector x:Name="trainerSelector"/>
                     <uc:TrainerStatDisplay x:Name="trainerStatDisplay" Grid.Column="1"/>
 
 

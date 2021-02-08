@@ -30,24 +30,22 @@ namespace PokeroleUI2
         {
             dataManager = new ActiveDataManager();
             InitializeComponent();
-            TrainerData Red = new TrainerData("Red");
-            dataManager.ActiveList = new TrainerList(new List<TrainerSave>());
-            dataManager.ActiveTrainer = Red;
             dataManager.DexMoveChanged += UpdateDexMove;
             dataManager.BoxMoveChanged += UpdateBoxMove;
             dataManager.DexAbilityChanged += UpdateDexAbility;
             dataManager.BoxAbilityChanged += UpdateBoxAbility;
             dataManager.DexMoveAbilityToggled += UpdateDexAbility;
             dataManager.BoxMoveAbilityToggled += UpdateBoxAbility;
+            trainerStatDisplay.PropertyChanged += trainerSelector.OnContainerChanged;
 
-
+            this.Closed += new EventHandler(MainWindow_Closed);
         }
 
         private void Catch_Click(object sender, RoutedEventArgs e)
         {
-            if(dexStatDisplay.dexData != null)
+            if(dataManager.ActiveTrainer != null && dataManager.ActiveDex != null)
             {
-                dataManager.ActiveTrainer.CatchPokemon(dexStatDisplay.dexData);
+                dataManager.ActiveTrainer.AddPokemon(dexStatDisplay.dexData);
             }
         }
 
@@ -90,6 +88,11 @@ namespace PokeroleUI2
             {
                 PokemonUtils.SetTypeColours(dataManager.ActiveBox.Type1, dataManager.ActiveBox.Type2);
             }
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            dataManager.SaveTrainer(true);
         }
     }
 }

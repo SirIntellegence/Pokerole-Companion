@@ -80,8 +80,42 @@ namespace PokeroleUI2
         public PkmnSimpleStat Will { get; set; }
         public List<string> Abilities;
         public int CurrentAbilityIndex;
-        public int LearnableMoves = 4;
-        public List<string> Moves;
+        private int _learnableMoves;
+        public int LearnableMoves { get { return _learnableMoves; } set { _learnableMoves = value; } }
+        private string[] _moveStrings;
+        public string[] MoveStrings {
+            get
+            {
+                _moveStrings = new string[LearnableMoves];
+                for(int i = 0; i < LearnableMoves; i++)
+                {
+                    if(Moves != null && Moves[i] != null)
+                    {
+                        _moveStrings[i] = Moves[i].Name;
+                    }
+                    else
+                    {
+                        _moveStrings[i] = "";
+                    }
+                }
+                return _moveStrings;
+            }
+            set
+            {
+                LearnableMoves = value.Length;
+                Moves = new MoveData[value.Length];
+                for(int i = 0; i < Moves.Length; i++)
+                {
+                    Moves[i] = DataSerializer.LoadMoveData(value[i]);
+                }
+            }
+        }
+
+
+        private MoveData[] _moves;
+        [XmlIgnoreAttribute]
+        public MoveData[] Moves { get { if (_moves == null) { _moves = new MoveData[0]; } return _moves; } set { _moves = value; } }
+
         [XmlIgnoreAttribute]
         private LearnsetData _learnSet;
         [XmlIgnoreAttribute]
@@ -89,7 +123,7 @@ namespace PokeroleUI2
         {
             get
             {
-                if (_learnSet == null) { _learnSet = new LearnsetData(Moves, Rank); }
+                if (_learnSet == null || _learnSet.maxrank != Rank) { _learnSet = new LearnsetData(DexData.Learnset, Rank); }
                 return _learnSet;        
             }
             set
@@ -98,7 +132,6 @@ namespace PokeroleUI2
             }
         }
 
-        public string Weaknesses;
 
         public PokemonData()
         {
@@ -114,7 +147,6 @@ namespace PokeroleUI2
             Height = dd.Height;
 
             Abilities = dd.Abilities;
-            Moves = new List<string>();
             PopulateStats(dd);
             UpdateDependencies();
         }
@@ -157,6 +189,10 @@ namespace PokeroleUI2
 
             HP = new PkmnSimpleStat(dd.BaseHP, dd.BaseHP, dd.BaseHP);
             Will = new PkmnSimpleStat(0, Attributes.GetStatByTag("Insight").Value + 2, Attributes.GetStatByTag("Insight").Value + 2);
+
+            LearnableMoves = Attributes.GetStatByTag("Insight").Value + 2;
+            string[] moveStrings = new string[LearnableMoves];
+
         }
 
         public void UpdateDependencies()
@@ -168,24 +204,30 @@ namespace PokeroleUI2
             HP.Max = HP.BaseVal + Attributes.GetStatByTag("Vitality").Value;
             Will.Max = Attributes.GetStatByTag("Insight").Value + 2;
             LearnSet = new LearnsetData(DexData.Learnset, Rank);
-            ReLengthMovesList();
+            LearnableMoves = Attributes.GetStatByTag("Insight").Value + 2;
+            UpdateMovesCount();
         }
 
-        public void ReLengthMovesList()
+        public void UpdateMovesCount()
         {
-            LearnableMoves = Attributes.GetStatByTag("Insight").Value + 2;
-            List<string> theseMoves = new List<string>();
-            for (int i = 0; i < LearnableMoves; i++)
+            if(Moves == null)
             {
-                if(Moves.Count > i)
-                {
-                    theseMoves.Add(Moves[i]);
-                    continue;
-                }
-                theseMoves.Add(LearnSet.learnset[0].Name);
+                Moves = new MoveData[0];
             }
-            Moves = theseMoves;
 
+            MoveData[] newMoves = new MoveData[LearnableMoves];
+            for(int i = 0; i < newMoves.Length; i++)
+            {
+                if (i < Moves.Length)
+                {
+                    newMoves[i] = Moves[i];
+                }
+                else
+                {
+                    newMoves[i] = new MoveData();
+                }
+            }
+            Moves = newMoves;
         }
     }
 }

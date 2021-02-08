@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -10,8 +13,50 @@ using System.Xml.Serialization;
 
 namespace PokeroleUI2
 {
+    public class TrainerContainer : INotifyPropertyChanged
+    {
+        public long rID { get; set; }
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Path { get; set; }
+
+        public TrainerContainer()
+        {
+        }
+
+        public TrainerContainer(TrainerData td)
+        {
+            rID = td.rID;
+            Name = td.Name;
+            Path = td.path;
+        }
+
+        public TrainerData LoadTrainer()
+        {
+            TrainerData trainer = (TrainerData)DataSerializer.LoadXML(Path, typeof(TrainerData));
+            return trainer;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+    }
+
     public class TrainerData
     {
+        [XmlIgnoreAttribute]
+        public TrainerContainer Container;
+        [XmlIgnoreAttribute]
+        public string path { get { return ConfigurationManager.AppSettings["TrainerDirectory"] + rID + ".xml"; } }
         public long rID;
         public float displaycolor;
         [XmlIgnoreAttribute]
@@ -40,7 +85,11 @@ namespace PokeroleUI2
         public PkmnStatCollection SocialAttributes;
         public PkmnStatCollection Skills;
 
-        public string Name { get; set; }
+        public string _name;
+        public string Name {
+            get { return _name; }
+            set { _name = value; if (Container != null) { Container.Name = value; } }
+        }
         public string PlayerName { get; set; }
         public string Concept { get; set; }
 
@@ -67,7 +116,12 @@ namespace PokeroleUI2
         public BackpackData Backpack;
         public float Money { get; set; }
 
-        public ObservableCollection<PokemonData> Party { get; set; }
+        private ObservableCollection<PokemonData> _party;
+        public ObservableCollection<PokemonData> Party { get { return _party; } set { _party = value;} }
+        public ObservableCollection<PokemonData> Box { get; set; }
+        [XmlIgnoreAttribute]
+        public int PkmnCount { get { return Party.Count + Box.Count; } }
+
         [XmlIgnoreAttribute]
         public PokemonData ActivePokemon;
 
@@ -82,6 +136,7 @@ namespace PokeroleUI2
             Rank = 0;
             Name = name;
             Party = new ObservableCollection<PokemonData>();
+            Box = new ObservableCollection<PokemonData>();
             PopulateStats();
             UpdateDependencies();
 
@@ -92,6 +147,7 @@ namespace PokeroleUI2
             Color color = Color.FromScRgb(1, rgb[0], rgb[1], rgb[2]);
             _displayBrush = new SolidColorBrush(color);
         }
+
 
         public long GenerateRID()
         {
@@ -180,10 +236,43 @@ namespace PokeroleUI2
             Skills.MaxPoints = (PokemonUtils.GetSkillPointMax(Rank));
         }
 
-        public void CatchPokemon(DexData dd)
+        public void ShiftParty()
+        {
+            if(_party == null) { return; }
+            List<PokemonData> shifts = new List<PokemonData>();
+            foreach (PokemonData pd in _party.Skip(6))
+            {
+                shifts.Add(pd);
+            }
+            foreach(PokemonData pd in shifts)
+            {
+                _party.Remove(pd);
+                Box.Insert(0, pd);                
+            }
+        }
+
+        public void AddPokemon(DexData dd)
         {
             PokemonData pd = new PokemonData(dd);
             Party.Add(pd);
+            ShiftParty();
+        }
+
+        public void DeletePokemon(PokemonData pd)
+        {
+            if (Party.Contains(pd))
+            {
+                Party.Remove(pd);
+            }
+            if (Box.Contains(pd))
+            {
+                Box.Remove(pd);
+            }
+        }
+
+        public void Save()
+        {
+            DataSerializer.SaveXML(this, path, GetType());
         }
     }
 }

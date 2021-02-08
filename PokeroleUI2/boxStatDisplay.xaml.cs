@@ -40,6 +40,12 @@ namespace PokeroleUI2.Controls
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public List<StatDots> StatDotsList;
         
         public boxStatDisplay()
@@ -169,12 +175,6 @@ namespace PokeroleUI2.Controls
             pokemonData.UpdateDependencies();
 
             UpdatePointsDisplay();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
     }

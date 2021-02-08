@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -11,20 +12,6 @@ namespace PokeroleUI2
 {
     public class ActiveDataManager : INotifyPropertyChanged
     {
-
-        private TrainerList _activeList;
-        public TrainerList ActiveList
-        {
-            get { return _activeList; }
-            set
-            {
-                if (_activeList != value)
-                {
-                    _activeList = value;
-                    OnTrainerListChanged();
-                }
-            }
-        }
 
         private TrainerData _activeTrainer;
         public TrainerData ActiveTrainer
@@ -156,6 +143,27 @@ namespace PokeroleUI2
         }
 
 
+        public bool isTrainerSaving = false;
+        public void SaveTrainer(bool force = false)
+        {
+            if((ActiveTrainer != null && !isTrainerSaving))
+            {
+                isTrainerSaving = true;
+                ActiveTrainer.Save();
+                Task.Delay(TimeSpan.FromSeconds(5)).ContinueWith(t => FinishSave());
+            }
+            if (force && (ActiveTrainer != null))
+            {
+                
+                ActiveTrainer.Save();
+            }
+
+        }
+        public void FinishSave()
+        {
+            isTrainerSaving = false;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -174,16 +182,13 @@ namespace PokeroleUI2
         public event PropertyChangedEventHandler TrainerChanged;
         private void OnTrainerChanged([CallerMemberName] string propertyName = null)
         {
+            SaveTrainer();
             TrainerChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler TrainerListChanged;
-        private void OnTrainerListChanged([CallerMemberName] string propertyName = null)
-        {
-            TrainerListChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public event PropertyChangedEventHandler BoxChanged;
         private void OnBoxChanged([CallerMemberName] string propertyName = null)
         {
+            SaveTrainer();
             BoxChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public event PropertyChangedEventHandler DexChanged;

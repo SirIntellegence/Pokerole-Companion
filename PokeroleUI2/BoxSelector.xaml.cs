@@ -1,7 +1,10 @@
-﻿using System;
+﻿using GongSolutions.Wpf.DragDrop;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,13 +22,34 @@ namespace PokeroleUI2.Controls
     /// <summary>
     /// Interaction logic for BoxSelector.xaml
     /// </summary>
-    public partial class BoxSelector : UserControl
+    public partial class BoxSelector : UserControl, INotifyPropertyChanged, IDropTarget
     {
         private MainWindow mainwindow;
         public ActiveDataManager dataManager;
 
         public EventHandler BoxSelection;
-        public TrainerData activeTrainer;
+        private TrainerData _activeTrainer;
+        public TrainerData ActiveTrainer
+        {
+            get { return _activeTrainer; }
+            set
+            {
+                if (_activeTrainer != value)
+                {
+                    _activeTrainer = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public BoxSelector()
         {
@@ -38,24 +62,45 @@ namespace PokeroleUI2.Controls
 
         void OnTrainerChanged(object sender, EventArgs e)
         {
-            activeTrainer = dataManager.ActiveTrainer;
-            Update();
+            ActiveTrainer = dataManager.ActiveTrainer;
+            OnPropertyChanged("ActiveTrainer");
+            if (ActiveTrainer == null) { return; }
         }
 
-        public void Update()
-        {
-            boxGrid.ItemsSource = activeTrainer.Party;
-        }
 
         private void BoxGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PokemonData pd = (PokemonData)boxGrid.SelectedItem;
+            DataGrid dg = (DataGrid)sender;
+            PokemonData pd = (PokemonData)dg.SelectedItem;
             if(pd != null)
             {
-                dataManager.ActiveBox = (PokemonData)boxGrid.SelectedItem;
+                dataManager.ActiveBox = pd;
             }
         }
-
         
+        void IDropTarget.DragOver(IDropInfo dropInfo)
+        {
+            PokemonData sourceItem = dropInfo.Data as PokemonData;
+
+            if (sourceItem != null)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+        void IDropTarget.Drop(IDropInfo dropInfo)
+        {
+            PokemonData source = (PokemonData)dropInfo.Data;
+            ObservableCollection<PokemonData> targetcollection = (ObservableCollection<PokemonData>)dropInfo.TargetCollection;
+            ObservableCollection<PokemonData> sourcecollection = (ObservableCollection<PokemonData>)dropInfo.DragInfo.SourceCollection;
+
+            sourcecollection.Remove(source);
+            targetcollection.Insert(dropInfo.InsertIndex, source);
+
+            ActiveTrainer.ShiftParty();
+
+            dataManager.ActiveTrainer.UpdateDependencies();
+            OnPropertyChanged("ActiveTrainer");
+        }
     }
 }

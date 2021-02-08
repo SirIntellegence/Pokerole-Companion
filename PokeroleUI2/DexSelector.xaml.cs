@@ -44,23 +44,6 @@ namespace PokeroleUI2.Controls
             ListData selected = (ListData)dexGrid.SelectedItem;
             dataManager.ActiveDex = DataSerializer.LoadDexData(selected.ID);
         }
-        /*
-        private void CSVSerialize_Click(object sender, RoutedEventArgs e)
-        {
-            List<DexData> AllData = new List<DexData>();
-            foreach(ListData ld in data)
-            {
-                AllData.Add(new DexData(ld));
-            }
-            //DataSerializer.SaveDexData("../DataSources/dex.csv", AllData);
-        }
-
-        private void CSVDeserialize_Click(object sender, RoutedEventArgs e)
-        {
-            data = DataSerializer.LoadListData("../DataSources/dex.csv");
-            dexGrid.ItemsSource = data;
-        }
-        */
 
     }
 }

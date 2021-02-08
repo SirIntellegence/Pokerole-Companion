@@ -3,15 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:uc="clr-namespace:PokeroleUI2.Controls"
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             >
     <Grid>
-        <ScrollViewer Margin="0,0,0,0">
-            <StackPanel x:Name="MovesStack" VerticalAlignment="Top" Margin="0,0,0,0">
-            </StackPanel>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+        <local:VerticalContentBlock Tag="Moves">
+            <DataGrid Margin="0,0,0,0" x:Name="MovesGrid" IsReadOnly="True" AlternatingRowBackground="AliceBlue" Grid.Row="0" AutoGenerateColumns="False" BorderThickness="0" GridLinesVisibility="None" ItemsSource="{Binding Path=ActiveBox.Moves, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" IsSynchronizedWithCurrentItem="True"
+                      SelectionMode="Single">
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource StrippedCell}">
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding ="{Binding Path=Rank, Mode=TwoWay}" Header="Rank" Width="50"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Name, Mode=TwoWay}" Header="Name" Width="1*"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Power, Mode=TwoWay}" Header="Power" Width="100"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Category, Mode=TwoWay}" Header="Category" Width="100"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Type, Mode=TwoWay}" Header="Type" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </local:VerticalContentBlock>
+
+        <local:VerticalContentBlock Tag="Learnset" Grid.Row="1" Background="Gray">
+            <DataGrid Margin="0,0,0,0" x:Name="LearnGrid" IsReadOnly="True" AlternatingRowBackground="AliceBlue" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Path=ActiveBox.LearnSet.learnset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragDropCopyKeyState="LeftMouseButton"
+                      SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding ="{Binding Path=Rank, Mode=TwoWay}" Header="Rank" Width="50"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Name, Mode=TwoWay}" Header="Name" Width="1*"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Power, Mode=TwoWay}" Header="Power" Width="100"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Category, Mode=TwoWay}" Header="Category" Width="100"/>
+                    <DataGridTextColumn Binding ="{Binding Path=Type, Mode=TwoWay}" Header="Type" Width="100"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </local:VerticalContentBlock>
     </Grid>
 </UserControl>

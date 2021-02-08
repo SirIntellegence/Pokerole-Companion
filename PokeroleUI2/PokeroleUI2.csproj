@@ -62,6 +62,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.2.3.2\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -127,6 +130,7 @@
     <Compile Include="DataClasses\Maps\DexMap.cs" />
     <Compile Include="DataClasses\Maps\ListMap.cs" />
     <Compile Include="DataClasses\Maps\MoveMap.cs" />
+    <Compile Include="DataClasses\Maps\TrainerContainerMap.cs" />
     <Compile Include="DexAbilitySelector.xaml.cs">
       <DependentUpon>DexAbilitySelector.xaml</DependentUpon>
     </Compile>
@@ -140,7 +144,9 @@
       <DependentUpon>FooterMoveDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextFieldContentBlock.cs" />
-    <Compile Include="TrainerList.cs" />
+    <Compile Include="TrainerSelector.xaml.cs">
+      <DependentUpon>TrainerSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrainerStatDisplay.xaml.cs">
       <DependentUpon>TrainerStatDisplay.xaml</DependentUpon>
     </Compile>
@@ -148,9 +154,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="DataClasses\LearnsetData.cs" />
     <Compile Include="DataClasses\MoveData.cs" />
-    <Compile Include="MoveShort.xaml.cs">
-      <DependentUpon>MoveShort.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SimpleStatSliderControl.xaml.cs">
       <DependentUpon>SimpleStatSliderControl.xaml</DependentUpon>
     </Compile>
@@ -210,10 +213,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MoveShort.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PokeRoleDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -258,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StatDots.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrainerSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

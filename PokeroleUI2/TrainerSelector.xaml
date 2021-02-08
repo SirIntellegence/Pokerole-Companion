@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="PokeroleUI2.Controls.TrainerSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Margin="0,0,0,0" x:Name="trainerGrid" IsReadOnly="True" AlternatingRowBackground="AliceBlue" Grid.Row="0" SelectionChanged="TrainerGrid_SelectionChanged" AutoGenerateColumns="False" HeadersVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name ="columnName" Binding ="{Binding Path=Name, Mode=TwoWay}" Header="Name"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="AddTrainer" Grid.Row="1" Height="40" Click="AddTrainer_Click">
+            <TextBlock Text="Add new Trainer"/>
+        </Button>
+        <Button x:Name="DeleteTrainer" Grid.Row="2" Height="40" Click="DeleteTrainer_Click">
+            <TextBlock Text="Delete Selected Trainer"/>
+        </Button>
+    </Grid>
+</UserControl>

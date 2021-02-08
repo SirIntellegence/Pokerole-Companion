@@ -1,6 +1,10 @@
-﻿using System;
+﻿using GongSolutions.Wpf.DragDrop;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,41 +22,76 @@ namespace PokeroleUI2.Controls
     /// <summary>
     /// Interaction logic for boxMovesDisplay.xaml
     /// </summary>
-    public partial class boxMovesDisplay : UserControl
+    public partial class boxMovesDisplay : UserControl, INotifyPropertyChanged, IDropTarget
     {
         private MainWindow mainwindow;
         public ActiveDataManager dataManager;
 
-        public PokemonData pd { get { return dataManager.ActiveBox; } }
+        private PokemonData _activeBox;
+        public PokemonData ActiveBox
+        {
+            get { return _activeBox; }
+            set
+            {
+                if (_activeBox != value)
+                {
+                    _activeBox = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public List<MoveShort> moveShorts;
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public boxMovesDisplay()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
             dataManager = mainwindow.dataManager;
+
+            DataContext = this;
             InitializeComponent();
+
             dataManager.BoxChanged += OnBoxChanged;
+            dataManager.TrainerChanged += OnBoxChanged;
+
         }
 
         void OnBoxChanged(object sender, EventArgs e)
         {
-            if (pd == null)
-            {
-                MovesStack.Children.Clear();
-                return;
-            }
-            Update();
+            ActiveBox = dataManager.ActiveBox;
+            OnPropertyChanged("ActiveBox");
         }
 
-
-        public void Update()
+        void IDropTarget.DragOver(IDropInfo dropInfo)
         {
-            MovesStack.Children.Clear();
-            moveShorts = new List<MoveShort>();
-            for(int i = 0; i < pd.Moves.Count; i++)
+            if (dropInfo.Data is MoveData && dropInfo.TargetItem is MoveData)
             {
-                MovesStack.Children.Add(new MoveShort(i, pd));
-            }            
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+        void IDropTarget.Drop(IDropInfo dropInfo)
+        {
+            MoveData move = (MoveData)dropInfo.TargetItem;
+            MoveData learn = (MoveData)dropInfo.Data;
+            int i = Array.IndexOf(ActiveBox.Moves, move);
+            if(i != -1)
+            {
+                ActiveBox.Moves[i] = learn;
+            }
+            dataManager.ActiveBox.UpdateDependencies();
+            OnPropertyChanged("ActiveBox");
+        }
+
+        private void LearnGrid_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
         }
     }
 }

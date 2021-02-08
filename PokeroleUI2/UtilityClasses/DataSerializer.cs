@@ -14,7 +14,7 @@ namespace PokeroleUI2
 {
     public static class DataSerializer
     {
-        public static void Save(Object file, string path, Type type)
+        public static void SaveXML(Object file, string path, Type type)
         {
             var dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dir))
@@ -27,7 +27,7 @@ namespace PokeroleUI2
             writer.Close();
         }
 
-        public static object Load(string path, Type type)
+        public static object LoadXML(string path, Type type)
         {
             XmlSerializer x = new System.Xml.Serialization.XmlSerializer(type);
             StreamReader reader = new StreamReader(path);
@@ -37,8 +37,53 @@ namespace PokeroleUI2
             return file;
         }
 
-        public static void SaveDexData(string path, List<DexData> dds)
+        public static void SaveTrainerContainers(IEnumerable<TrainerContainer> TrainerContainers)
         {
+            string path = ConfigurationManager.AppSettings["TrainerContainerPath"];
+            var dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var writer = new StreamWriter(path))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<TrainerContainerMap>();
+                csv.WriteHeader<TrainerContainer>();
+                csv.NextRecord();
+                foreach (var record in TrainerContainers)
+                {
+                    csv.WriteRecord(record);
+                    csv.NextRecord();
+                }
+            }
+        }
+
+        public static ObservableCollection<TrainerContainer> LoadAllTrainerContainers()
+        {
+            string path = ConfigurationManager.AppSettings["TrainerContainerPath"];
+
+            ObservableCollection<TrainerContainer> tcs;
+            var dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<TrainerContainerMap>();
+                tcs = new ObservableCollection<TrainerContainer>(csv.GetRecords<TrainerContainer>());
+
+            }
+            return tcs;
+        }
+
+        public static void SaveDexData(List<DexData> dds)
+        {
+            string path = ConfigurationManager.AppSettings["DexPath"];
             var dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dir))
             {
@@ -155,7 +200,8 @@ namespace PokeroleUI2
                     }
                 }
             }
-            throw new Exception("No movedata found at name: " + name); 
+            return new MoveData();
+            //throw new Exception("No movedata found at name: " + name); 
         }
 
         public static AbilityData LoadAbilityData(string name)

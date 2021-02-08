@@ -26,7 +26,7 @@ namespace PokeroleUI2.Controls
         public ActiveDataManager dataManager;
 
         private TrainerData _trainerData;
-        public TrainerData trainerData
+        public TrainerData trainerData 
         {
             get { return _trainerData; }
             set
@@ -73,7 +73,7 @@ namespace PokeroleUI2.Controls
             trainerData = dataManager.ActiveTrainer;
 
             if (trainerData == null) { Clear(); return; }
-
+            trainerData.Save();
             UpdateTrainer();
         }
 
