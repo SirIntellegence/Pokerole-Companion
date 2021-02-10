@@ -1,3 +1,4 @@
+
 # 🎲 Pokérole Companion 🎲
 
 A utility for the Pokérole system.
@@ -8,7 +9,7 @@ I am not a programmer by trade. I built this because I wanted to. It's probably 
 # Download link
 
 You can download a compiled version here: https://drive.google.com/file/d/1EAc8Jxr1_e-l6QvWhsP_bvPLVZAg3TN_/view?usp=sharing
-To run, open "Pokerole Companion\bin\PokeroleUI2". Or create a shortcut to it.
+To run, open "Pokerole Companion\bin\PokeroleUI2.exe". Or create a shortcut to it.
 
 
 ## Features that might not be immediately obvious
@@ -33,3 +34,7 @@ Click and drag to add moves from a pokémon's learnset
 
 
 You can't catch a Pokémon if you don't have a trainer! Make sure you've created and selected a trainer first.
+## Screenshots!
+[Pokedex Screen](https://i.imgur.com/W20KHuF.png)!
+[Trainer Screen](https://i.imgur.com/6hKn2wb.png)!
+[Pokemon Screen](https://i.imgur.com/ry0Gn76.png)
