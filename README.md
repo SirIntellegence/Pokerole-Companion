@@ -13,14 +13,23 @@ To run, open "Pokerole Companion\bin\PokeroleUI2". Or create a shortcut to it.
 
 ## Features that might not be immediately obvious
 Search Pokédex by name
+
 Optional search prefixes:
+
 Rank:
+
 Type:
+
 Type1:
+
 Type2:
+
 (For instance, Type2:Grass will display all pokémon with grass as a secondary type)
+
+
 
 Click and drag to move pokémon between party and box
 Click and drag to add moves from a pokémon's learnset
+
 
 You can't catch a Pokémon if you don't have a trainer! Make sure you've created and selected a trainer first.
