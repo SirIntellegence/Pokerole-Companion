@@ -35,6 +35,6 @@ Click and drag to add moves from a pokémon's learnset
 
 You can't catch a Pokémon if you don't have a trainer! Make sure you've created and selected a trainer first.
 ## Screenshots!
-[Pokedex Screen](https://i.imgur.com/W20KHuF.png)!
-[Trainer Screen](https://i.imgur.com/6hKn2wb.png)!
-[Pokemon Screen](https://i.imgur.com/ry0Gn76.png)
+![Pokedex Screen](https://i.imgur.com/W20KHuF.png)
+![Trainer Screen](https://i.imgur.com/6hKn2wb.png)
+![Pokemon Screen](https://i.imgur.com/ry0Gn76.png)
