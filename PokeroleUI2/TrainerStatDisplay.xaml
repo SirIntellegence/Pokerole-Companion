@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+    FontFamily="Trebuchet MS"
              >
     <Grid x:Name="MainGrid"  Background="Beige" Visibility="Visible" >
         <Grid.OpacityMask>
@@ -37,11 +38,11 @@
             <local:TextFieldContentBlock Tag="Name" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="300" HorizontalAlignment="Left" Margin="12,0,0,0" >
                 <TextBox x:Name="textName" Text="{Binding trainerData.Name, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
             </local:TextFieldContentBlock>
-            <local:TextFieldContentBlock Tag="Player" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="200" HorizontalAlignment="Right" Margin="12,0,0,0" >
+            <local:TextFieldContentBlock Tag="Player" Grid.Column="0" Grid.Row="3" Background="{x:Null}" BorderBrush="{x:Null}" Width="200" HorizontalAlignment="Right" Margin="12,0,50,0" >
                 <TextBox Text="{Binding trainerData.PlayerName, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="{StaticResource Bliss}" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
             </local:TextFieldContentBlock>
         </Grid>
-
+        
         <!--AttributeStack-->
         <StackPanel Grid.ColumnSpan="1" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" x:Name="StatDotPanel">
             <TextBlock><Run Text="Attribute Points:" FontFamily="{DynamicResource SquareFont}"/><Run Text=" "/><Run x:Name = "textAttributePoints" Text="0" FontFamily="{DynamicResource SquareFont}"/></TextBlock>
@@ -197,30 +198,30 @@
             </local:VerticalContentBlock>
 
             <local:TextFieldContentBlock Tag="Nature" Grid.Column="1" Grid.Row="0" >
-                <TextBox x:Name="textNature" Text="{Binding trainerData.Nature, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+                <TextBox x:Name="textNature" Text="{Binding trainerData.Nature, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" Background="{x:Null}" BorderBrush="{x:Null}" />
             </local:TextFieldContentBlock>
             <local:TextFieldContentBlock Tag="Confidence" Grid.Column="1" Grid.Row="1" >
-                <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Confidence, Mode=TwoWay}" BorderBrush="{x:Null}" Margin="2,2,2,2" VerticalAlignment="Center"/>
+                <xctk:IntegerUpDown Text="{Binding trainerData.Confidence, Mode=TwoWay}" BorderBrush="{x:Null}" Margin="2,2,2,2" VerticalAlignment="Center"/>
             </local:TextFieldContentBlock>
 
             <local:TextFieldContentBlock Tag="Age" Grid.Column="0" Grid.Row="1" >
-                <xctk:IntegerUpDown HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Age, Mode=TwoWay}" BorderBrush="{x:Null}"/>
+                <xctk:IntegerUpDown HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,2,2,2" Text="{Binding trainerData.Age, Mode=TwoWay}" BorderBrush="{x:Null}"/>
             </local:TextFieldContentBlock>
             <local:TextFieldContentBlock Tag="Money" Grid.Column="0" Grid.Row="2" >
                 <WrapPanel VerticalAlignment="Center" Margin="2,2,2,2" HorizontalAlignment="Right">
-                    <TextBlock Text="₽" FontFamily="{StaticResource Bliss}" FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
-                    <xctk:DecimalUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Money, Mode=TwoWay}" BorderBrush="{x:Null}"/>
+                    <TextBlock Text="₽" FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
+                    <xctk:DecimalUpDown Text="{Binding trainerData.Money, Mode=TwoWay}" BorderBrush="{x:Null}"/>
                 </WrapPanel>
             </local:TextFieldContentBlock>
             <local:TextFieldContentBlock Tag="Caught/Seen" Grid.Column="1" Grid.Row="2" >
                 <WrapPanel VerticalAlignment="Center" Margin="2,2,2,2" HorizontalAlignment="Center">
-                    <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Caught, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Left" ShowButtonSpinner="False"/>
-                    <TextBlock Text="/" FontFamily="{StaticResource Bliss}" FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
-                    <xctk:IntegerUpDown FontFamily="{StaticResource Bliss}" Text="{Binding trainerData.Seen, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Right" ShowButtonSpinner="False"/>
+                    <xctk:IntegerUpDown  Text="{Binding trainerData.Caught, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Left" ShowButtonSpinner="False"/>
+                    <TextBlock Text="/"  FontSize="16" Foreground="{StaticResource Col_LightBlack}"/>
+                    <xctk:IntegerUpDown Text="{Binding trainerData.Seen, Mode=TwoWay}" BorderBrush="{x:Null}" ButtonSpinnerLocation="Right" ShowButtonSpinner="False"/>
                 </WrapPanel>
             </local:TextFieldContentBlock>
             <local:TextFieldContentBlock Tag="Concept" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
-                <TextBox Text="{Binding trainerData.Concept, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" FontFamily="{StaticResource Bliss}" Background="{x:Null}" BorderBrush="{x:Null}" />
+                <TextBox Text="{Binding trainerData.Concept, Mode=TwoWay}" TextAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" Background="{x:Null}" BorderBrush="{x:Null}" />
             </local:TextFieldContentBlock>
 
         </Grid>
@@ -243,6 +244,30 @@
         </Grid>
         <Rectangle x:Name="ImageBack" Fill="AliceBlue" Margin="0,0,0,0" Grid.Row="1"/>
         <Image x:Name="ImageDisplay" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform"/>
+        
 
+        <Expander Grid.Column="0" HorizontalAlignment="Right" Height="Auto" VerticalAlignment="Top" Margin="0,10,10,0" Grid.RowSpan="3"  Width="Auto" FlowDirection="RightToLeft" Grid.ColumnSpan="5">
+            <Border FlowDirection="LeftToRight" Padding="5" CornerRadius="8">
+                <StackPanel HorizontalAlignment="Center">
+                    <local:VerticalContentBlock Tag="Set  Colour">
+                        <xctk:ColorPicker x:Name="TrainerColorPicker" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+                    </local:VerticalContentBlock>
+                    <local:VerticalContentBlock Tag="Delete Trainer">
+                        <StackPanel HorizontalAlignment="Center"  Margin="0,0,0,5">
+                            <TextBlock Text="Type trainer name:" FontFamily="{StaticResource Bliss}" HorizontalAlignment="Center" Width="Auto" TextAlignment="Center" FlowDirection="LeftToRight"/>
+                            <TextBox x:Name="DeleteBox"></TextBox>
+                            <TextBlock Text="Click to delete:" FontFamily="{StaticResource Bliss}" HorizontalAlignment="Center" Width="Auto" TextAlignment="Center" FlowDirection="LeftToRight"/>
+                            <Button Height="20" Click="DeleteButton_Click">
+                                <TextBlock Text="DELETE" FontFamily="SquareFont"/>
+                            </Button>
+
+                        </StackPanel>
+                    </local:VerticalContentBlock>
+                </StackPanel>
+
+
+
+            </Border>
+        </Expander>
     </Grid>
 </UserControl>

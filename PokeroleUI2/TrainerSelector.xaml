@@ -5,23 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontFamily="Trebuchet MS">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Margin="0,0,0,0" x:Name="trainerGrid" IsReadOnly="True" AlternatingRowBackground="AliceBlue" Grid.Row="0" SelectionChanged="TrainerGrid_SelectionChanged" AutoGenerateColumns="False" HeadersVisibility="None">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name ="columnName" Binding ="{Binding Path=Name, Mode=TwoWay}" Header="Name"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <local:VerticalContentBlock Tag="Trainers">
+            <DataGrid x:Name="trainerGrid" Margin="0,0,0,0" IsReadOnly="True" Grid.Row="1"  SelectionChanged="TrainerGrid_SelectionChanged" AutoGenerateColumns="False" HeadersVisibility="None"
+                  BorderBrush="{x:Null}" Background="{x:Null}" GridLinesVisibility="None"
+                      SelectionMode="Single"
+                                            CellStyle="{StaticResource SelectableCell}"
+
+                  >
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{StaticResource Col_AbilityRed}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name, Mode=TwoWay}" FontSize="14" Foreground="White" Background="{x:Null}"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </local:VerticalContentBlock>
         <Button x:Name="AddTrainer" Grid.Row="1" Height="40" Click="AddTrainer_Click">
             <TextBlock Text="Add new Trainer"/>
-        </Button>
-        <Button x:Name="DeleteTrainer" Grid.Row="2" Height="40" Click="DeleteTrainer_Click">
-            <TextBlock Text="Delete Selected Trainer"/>
         </Button>
     </Grid>
 </UserControl>

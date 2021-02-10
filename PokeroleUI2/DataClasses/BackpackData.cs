@@ -10,10 +10,13 @@ namespace PokeroleUI2
     {
         public string MainPocket { get; set; }
         public string SmallPocket { get; set; }
-        public List<PkmnSimpleStat> Potions { get; set; }
-        public List<PkmnSimpleStat> SuperPotions { get; set; }
-        public List<PkmnSimpleStat> HyperPotions { get; set; }
-        public List<string> Badges;
+        public int Potions { get; set; }
+        public int PotionsUses { get; set; }
+        public int SuperPotions { get; set; }
+        public int SuperPotionsUses { get; set; }
+        public int HyperPotions { get; set; }
+        public int HyperPotionsUses { get; set; }
+        public string Badges { get; set; }
 
     }
 }

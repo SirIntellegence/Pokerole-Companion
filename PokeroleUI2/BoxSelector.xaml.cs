@@ -54,7 +54,7 @@ namespace PokeroleUI2.Controls
         public BoxSelector()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             InitializeComponent();
             dataManager.TrainerChanged += OnTrainerChanged;
@@ -70,7 +70,16 @@ namespace PokeroleUI2.Controls
 
         private void BoxGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             DataGrid dg = (DataGrid)sender;
+            if(dg == boxgrid)
+            {
+                partygrid.SelectedItem = null;
+            }
+            if(dg == partygrid)
+            {
+                boxgrid.SelectedItem = null;
+            }
             PokemonData pd = (PokemonData)dg.SelectedItem;
             if(pd != null)
             {
@@ -95,12 +104,19 @@ namespace PokeroleUI2.Controls
             ObservableCollection<PokemonData> sourcecollection = (ObservableCollection<PokemonData>)dropInfo.DragInfo.SourceCollection;
 
             sourcecollection.Remove(source);
-            targetcollection.Insert(dropInfo.InsertIndex, source);
-
+            if (dropInfo.InsertIndex < targetcollection.Count)
+            {
+                targetcollection.Insert(dropInfo.InsertIndex, source);
+            } else
+            {
+                targetcollection.Add(source);
+            }
             ActiveTrainer.ShiftParty();
 
             dataManager.ActiveTrainer.UpdateDependencies();
             OnPropertyChanged("ActiveTrainer");
         }
     }
+
+
 }

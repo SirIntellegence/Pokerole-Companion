@@ -35,6 +35,7 @@
             <Run x:Name="textPower"  Text="{Binding Path=moveData.Power, Mode=OneWay}" FontFamily="{StaticResource SquareFont}" Foreground="White" FontSize="22"/>
         </TextBlock>
         <!--Cat Display-->
+        <Rectangle x:Name="rectCat" Fill="{Binding Path=moveData.catbrush, Mode=OneWay}" Grid.Row="0" Grid.Column="2"/>
         <Image x:Name="imageCat" Grid.Row="0" Grid.Column="2" Source="{Binding Path=moveData.CatImg, Mode=OneWay}"/>
         <!--Type  Display-->
         <Rectangle x:Name="rectType" Fill="{Binding Path=moveData.typebrush, Mode=OneWay}" Grid.Row="0" Grid.Column="3"/>

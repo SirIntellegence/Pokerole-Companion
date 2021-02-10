@@ -9,6 +9,7 @@ using CsvHelper;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace PokeroleUI2
 {
@@ -22,19 +23,28 @@ namespace PokeroleUI2
                 Directory.CreateDirectory(dir);
             }
             XmlSerializer x = new System.Xml.Serialization.XmlSerializer(type);
-            StreamWriter writer = new StreamWriter(path);
-            x.Serialize(writer, file);
-            writer.Close();
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                x.Serialize(writer, file);
+            }
         }
 
         public static object LoadXML(string path, Type type)
         {
             XmlSerializer x = new System.Xml.Serialization.XmlSerializer(type);
-            StreamReader reader = new StreamReader(path);
-            Object file;
-            file = x.Deserialize(reader);
-            reader.Close();
-            return file;
+            using (var reader = new StreamReader(path))
+            {
+                Object file;
+                file = x.Deserialize(reader);
+                return file;
+            }
+        }
+
+        public static void DeleteTrainer(TrainerContainer tc)
+        {
+            string path = Path.GetFullPath(tc.Path);
+            File.Delete(path);
+            Debug.WriteLine(path);
         }
 
         public static void SaveTrainerContainers(IEnumerable<TrainerContainer> TrainerContainers)

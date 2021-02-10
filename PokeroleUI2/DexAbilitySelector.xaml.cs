@@ -31,7 +31,7 @@ namespace PokeroleUI2.Controls
         public DexAbilitySelector()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
             InitializeComponent();
             dataManager.DexChanged += OnDexChanged;
         }

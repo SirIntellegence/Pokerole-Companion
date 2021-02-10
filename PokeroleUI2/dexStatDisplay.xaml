@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:PokeroleUI2"
              xmlns:uc="clr-namespace:PokeroleUI2.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800"
+             FontFamily="Trebuchet MS"
+             >
     <Grid>
         <Grid.OpacityMask>
             <VisualBrush Visual="{Binding ElementName=Border1}"/>
@@ -51,25 +53,25 @@
         </Grid>
 
     <local:VerticalContentBlock Tag="Height" Grid.Row="2" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textHeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
+            <TextBlock x:Name="textHeight" TextAlignment="Center" VerticalAlignment="Center">
                 <Run Text="{Binding Path=dexData.Height, Mode=OneWay}"/>
                 <Run Text="m"/>
             </TextBlock>
         </local:VerticalContentBlock>
         <local:VerticalContentBlock Tag="Weight" Grid.Row="2" Grid.Column="1" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textWeight" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}">
+            <TextBlock x:Name="textWeight" TextAlignment="Center" VerticalAlignment="Center">
                 <Run Text="{Binding Path=dexData.Weight, Mode=OneWay}"/>
                 <Run Text="kg"/>
             </TextBlock>        </local:VerticalContentBlock>
         <local:VerticalContentBlock Tag="Base HP" Grid.Row="2" Grid.Column="2" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textHP" Text="{Binding Path=dexData.BaseHP, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" />
+            <TextBlock x:Name="textHP" Text="{Binding Path=dexData.BaseHP, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" />
         </local:VerticalContentBlock>
         <local:VerticalContentBlock Tag="Rank" Grid.Row="2" Grid.Column="3" Background="{StaticResource Col_LightBlack}">
-            <TextBlock x:Name="textRank" Text="{Binding Path=dexData.Rank, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" />
+            <TextBlock x:Name="textRank" Text="{Binding Path=dexData.Rank, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center"/>
         </local:VerticalContentBlock>
 
         <local:TextFieldContentBlock Tag="Description" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <TextBlock x:Name="textDesc" Text="{Binding Path=dexData.Description, Mode=OneWay}" TextAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" FontFamily="{StaticResource Bliss}" />
+            <TextBlock x:Name="textDesc" Text="{Binding Path=dexData.Description, Mode=OneWay}" TextAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10"/>
         </local:TextFieldContentBlock>
 
         <local:VerticalContentBlock Tag="Abilities" Grid.Column="4" Grid.Row="2" Grid.RowSpan="2" Margin="0" Background="{StaticResource Col_LightBlack}">

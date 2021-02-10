@@ -30,7 +30,7 @@ namespace PokeroleUI2.Controls
         public BoxAbilitySelector()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
             InitializeComponent();
             dataManager.BoxChanged += OnBoxChanged;
         }

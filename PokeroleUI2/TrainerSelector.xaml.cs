@@ -31,7 +31,7 @@ namespace PokeroleUI2.Controls
         public TrainerSelector()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             InitializeComponent();
 
@@ -71,10 +71,15 @@ namespace PokeroleUI2.Controls
             DataSerializer.SaveTrainerContainers(data);
         }
 
-        private void DeleteTrainer_Click(object sender, RoutedEventArgs e)
+        public void DeleteTrainer(string name)
         {
-            data.Remove((TrainerContainer)trainerGrid.SelectedItem);
-            DataSerializer.SaveTrainerContainers(data);
+            TrainerContainer tc = (TrainerContainer)trainerGrid.SelectedItem;
+            if(tc == null) { return; }
+            if (name == tc.Name) {
+                DataSerializer.DeleteTrainer(tc);
+                data.Remove((TrainerContainer)trainerGrid.SelectedItem);
+                DataSerializer.SaveTrainerContainers(data);
+            }
 
         }
 

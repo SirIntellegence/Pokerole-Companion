@@ -13,10 +13,15 @@ namespace PokeroleUI2
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
+        private string _type = "";
+        public string Type { get { return _type; } set { _type = value; } }
         public Brush typebrush { get { return PokemonUtils.GetTypeColour(Type); } }
-        public string Category { get; set; }
+        public Brush catbrush { get { return PokemonUtils.GetCategoryColour(Category); } }
+
+        private string _category = "";
+        public string Category { get { return _category; } set { _category = value; } }
         public BitmapImage CatImg { get { return PokemonUtils.GetCategoryImage(Category); } }
+        public BitmapImage RankImg { get { return PokemonUtils.GetRankImage(Rank); } }
 
         public string Power { get; set; }
         public string PowerStat { get; set; }
@@ -25,7 +30,8 @@ namespace PokeroleUI2
         public string Target { get; set; }
         public string Effect { get; set; }
         public string Description { get; set; }
-        public int Rank { get; set; }
+        private int _rank = int.MaxValue;
+        public int Rank { get { return _rank; } set { _rank = value; } }
         public string RankString { get; set; }
 
         public string AccuracyString { get { return String.IsNullOrEmpty(AccuracyStat2) ? AccuracyStat1 : AccuracyStat1 + " + " + AccuracyStat2; } }

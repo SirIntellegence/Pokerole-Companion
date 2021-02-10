@@ -15,27 +15,49 @@ using System.Windows.Shapes;
 using PokeroleUI2.Controls;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace PokeroleUI2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private ActiveDataManager _dataManager;
+        public ActiveDataManager DataManager
+        {
+            get { return _dataManager; }
+            set
+            {
+                if (_dataManager != value)
+                {
+                    _dataManager = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public ActiveDataManager dataManager;
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
 
         public MainWindow()
         {
-            dataManager = new ActiveDataManager();
+            DataManager = new ActiveDataManager();
             InitializeComponent();
-            dataManager.DexMoveChanged += UpdateDexMove;
-            dataManager.BoxMoveChanged += UpdateBoxMove;
-            dataManager.DexAbilityChanged += UpdateDexAbility;
-            dataManager.BoxAbilityChanged += UpdateBoxAbility;
-            dataManager.DexMoveAbilityToggled += UpdateDexAbility;
-            dataManager.BoxMoveAbilityToggled += UpdateBoxAbility;
+            DataManager.DexMoveChanged += UpdateDexMove;
+            DataManager.BoxMoveChanged += UpdateBoxMove;
+            DataManager.DexAbilityChanged += UpdateDexAbility;
+            DataManager.BoxAbilityChanged += UpdateBoxAbility;
+            DataManager.DexMoveAbilityToggled += UpdateDexAbility;
+            DataManager.BoxMoveAbilityToggled += UpdateBoxAbility;
             trainerStatDisplay.PropertyChanged += trainerSelector.OnContainerChanged;
 
             this.Closed += new EventHandler(MainWindow_Closed);
@@ -43,56 +65,44 @@ namespace PokeroleUI2
 
         private void Catch_Click(object sender, RoutedEventArgs e)
         {
-            if(dataManager.ActiveTrainer != null && dataManager.ActiveDex != null)
+            if(DataManager.ActiveTrainer != null && DataManager.ActiveDex != null)
             {
-                dataManager.ActiveTrainer.AddPokemon(dexStatDisplay.dexData);
+                DataManager.ActiveTrainer.AddPokemon(dexStatDisplay.dexData);
             }
         }
 
         public void UpdateDexMove(object sender, PropertyChangedEventArgs e)
         {
-            DexFooterMoveDisplay.SetMove(dataManager.ActiveDexMoveData);
-            DexFooterAbilityDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
-            DexFooterMoveDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+            DexFooterMoveDisplay.SetMove(DataManager.ActiveDexMoveData);
+            DexFooterAbilityDisplay.ToggleVisibility(DataManager.DexMoveAbilityToggle);
+            DexFooterMoveDisplay.ToggleVisibility(DataManager.DexMoveAbilityToggle);
         }
 
         public void UpdateBoxMove(object sender, PropertyChangedEventArgs e)
         {
-            BoxFooterMoveDisplay.SetMove(dataManager.ActiveBoxMoveData);
-            BoxFooterAbilityDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
-            BoxFooterMoveDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
+            BoxFooterMoveDisplay.SetMove(DataManager.ActiveBoxMoveData);
+            BoxFooterAbilityDisplay.ToggleVisibility(DataManager.BoxMoveAbilityToggle);
+            BoxFooterMoveDisplay.ToggleVisibility(DataManager.BoxMoveAbilityToggle);
 
         }
 
         public void UpdateDexAbility(object sender, PropertyChangedEventArgs e)
         {
-            DexFooterAbilityDisplay.SetAbility(dataManager.ActiveDexAbility);
-            DexFooterAbilityDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
-            DexFooterMoveDisplay.ToggleVisibility(dataManager.DexMoveAbilityToggle);
+            DexFooterAbilityDisplay.SetAbility(DataManager.ActiveDexAbility);
+            DexFooterAbilityDisplay.ToggleVisibility(DataManager.DexMoveAbilityToggle);
+            DexFooterMoveDisplay.ToggleVisibility(DataManager.DexMoveAbilityToggle);
         }
 
         public void UpdateBoxAbility(object sender, PropertyChangedEventArgs e)
         {
-            BoxFooterAbilityDisplay.SetAbility(dataManager.ActiveBoxAbility);
-            BoxFooterAbilityDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
-            BoxFooterMoveDisplay.ToggleVisibility(dataManager.BoxMoveAbilityToggle);
-        }
-
-        public void SetColours()
-        {
-            if (dexTab.IsSelected == true)
-            {
-                PokemonUtils.SetTypeColours(dataManager.ActiveDex.Type1, dataManager.ActiveDex.Type2);
-            }
-            if (boxTab.IsSelected == true)
-            {
-                PokemonUtils.SetTypeColours(dataManager.ActiveBox.Type1, dataManager.ActiveBox.Type2);
-            }
+            BoxFooterAbilityDisplay.SetAbility(DataManager.ActiveBoxAbility);
+            BoxFooterAbilityDisplay.ToggleVisibility(DataManager.BoxMoveAbilityToggle);
+            BoxFooterMoveDisplay.ToggleVisibility(DataManager.BoxMoveAbilityToggle);
         }
 
         void MainWindow_Closed(object sender, EventArgs e)
         {
-            dataManager.SaveTrainer(true);
+            DataManager.SaveTrainer(true);
         }
     }
 }

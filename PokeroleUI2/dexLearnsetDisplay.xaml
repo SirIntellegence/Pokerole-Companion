@@ -7,21 +7,73 @@
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <DataGrid x:Name="MoveGrid" Margin="0,0,0,0" IsReadOnly="True" AlternatingRowBackground="AliceBlue" SelectionChanged="MoveGrid_SelectionChanged" AutoGenerateColumns="False">
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDown" Handler="Row_Click"/>
-                </Style>
-            </DataGrid.ItemContainerStyle>
-            <DataGrid.Columns>
-                    <DataGridTextColumn x:Name ="columnRank" Binding ="{Binding Path=RankString}" Header="Rank"/>
-                    <DataGridTextColumn x:Name ="columnType" Binding ="{Binding Path=Type}" Header="Type"/>
-                    <DataGridTextColumn x:Name ="columnName" Binding ="{Binding Path=Name}" Header="Name"/>
-            </DataGrid.Columns>
-           
+        <local:VerticalContentBlock Tag="Learnset">
+            <DataGrid x:Name="MoveGrid" AlternatingRowBackground="AliceBlue" SelectionChanged="MoveGrid_SelectionChanged" Margin="0,0,0,0" IsReadOnly="True" Grid.Row="0" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="{x:Null}" BorderThickness="0" GridLinesVisibility="None" ItemsSource="{Binding Path=ActiveBox.Moves, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"
+                      SelectionMode="Single" Background="{x:Null}">
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource SelectableCell}">
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Rank" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush}" CornerRadius="3" >
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <Image x:Name="ImageDisplay" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform" Source="{Binding Path=RankImg}" Height="16"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name}" FontFamily="{StaticResource Bliss}" FontSize="14" Foreground="White" Background="{x:Null}"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Power" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource SquareFont}" FontSize="16" Foreground="White" Background="{x:Null}">
+                                            <Run Text="{Binding Path=Power}"/>
+                                        </TextBlock>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Category" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=catbrush}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <Image x:Name="ImageDisplay" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform" Source="{Binding Path=CatImg}" Height="16"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Type" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Type}" FontFamily="{StaticResource Bliss}" FontSize="14" Foreground="White" Background="{x:Null}"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
 
-        </DataGrid>
-
-    </Grid>
+            </DataGrid>
+        </local:VerticalContentBlock>
 </UserControl>

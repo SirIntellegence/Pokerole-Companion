@@ -41,7 +41,7 @@ namespace PokeroleUI2.Controls
         public RankControl()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             InitializeComponent();
         }

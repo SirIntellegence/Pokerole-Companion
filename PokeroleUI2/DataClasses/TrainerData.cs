@@ -58,28 +58,9 @@ namespace PokeroleUI2
         [XmlIgnoreAttribute]
         public string path { get { return ConfigurationManager.AppSettings["TrainerDirectory"] + rID + ".xml"; } }
         public long rID;
-        public float displaycolor;
+        public Color displaycolor;
         [XmlIgnoreAttribute]
-        private SolidColorBrush _displayBrush;
-        [XmlIgnoreAttribute]
-        public SolidColorBrush displayBrush
-        {
-            get
-            {
-                if(_displayBrush == null)
-                {
-                    float h = displaycolor;
-                    float s = 0.75f;
-                    float l = 0.75f;
-                    float[] rgb = PokemonUtils.HSVToRGB(new float[] { h, s, l });
-                    Color color = Color.FromScRgb(1, rgb[0], rgb[1], rgb[2]);
-                    _displayBrush = new SolidColorBrush(color);
-                    Debug.WriteLine("Color" + color.R + color.G + color.B);
-                }
-
-                return _displayBrush;
-            }
-        }
+        public SolidColorBrush displayBrush { get { return new SolidColorBrush(displaycolor); } }
 
         public PkmnStatCollection Attributes;
         public PkmnStatCollection SocialAttributes;
@@ -113,7 +94,7 @@ namespace PokeroleUI2
 
         public string imgpath { get; set; }
 
-        public BackpackData Backpack;
+        public BackpackData Backpack { get; set; }
         public float Money { get; set; }
 
         private ObservableCollection<PokemonData> _party;
@@ -124,6 +105,8 @@ namespace PokeroleUI2
 
         [XmlIgnoreAttribute]
         public PokemonData ActivePokemon;
+
+        public string Notes { get; set; }
 
 
         public TrainerData()
@@ -139,13 +122,8 @@ namespace PokeroleUI2
             Box = new ObservableCollection<PokemonData>();
             PopulateStats();
             UpdateDependencies();
-
-            float h = displaycolor;
-            float s = 0.75f;
-            float l = 0.75f;
-            float[] rgb = PokemonUtils.HSVToRGB(new float[] { h, s, l });
-            Color color = Color.FromScRgb(1, rgb[0], rgb[1], rgb[2]);
-            _displayBrush = new SolidColorBrush(color);
+            Backpack = new BackpackData();
+            
         }
 
 
@@ -160,7 +138,6 @@ namespace PokeroleUI2
             long random_seed = (long)rnd.Next(1000, 5000);
             random_seed = random_seed * result + rnd.Next(1000, 5000);
             long result2 = ((long)(random_seed / 655) % 10000000000000001);
-            displaycolor = Math.Abs(result2) / long.MaxValue;
 
             return result2;
         }
@@ -201,6 +178,8 @@ namespace PokeroleUI2
 
             HP = new PkmnSimpleStat(Attributes.GetStatByTag("Vitality").Value, Attributes.GetStatByTag("Vitality").Value, Attributes.GetStatByTag("Vitality").Value);
             Will = new PkmnSimpleStat(0, Attributes.GetStatByTag("Insight").Value + 2, Attributes.GetStatByTag("Insight").Value + 2);
+
+            Notes = "";
 
         }
 

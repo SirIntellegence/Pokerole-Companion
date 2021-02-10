@@ -51,7 +51,7 @@ namespace PokeroleUI2.Controls
         public boxStatDisplay()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             DataContext = this;
             InitializeComponent();
@@ -76,7 +76,6 @@ namespace PokeroleUI2.Controls
                 Clear();
                 return; }
             UpdatePokemon();
-            mainwindow.SetColours();
         }
 
         public void Clear()
@@ -176,6 +175,16 @@ namespace PokeroleUI2.Controls
 
             UpdatePointsDisplay();
         }
-        
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(DeleteBox.Text == pokemonData.Name)
+            {
+                dataManager.ActiveTrainer.DeletePokemon(pokemonData);
+                dataManager.ActiveBox = null;
+                DeleteBox.Text = "";
+            }
+            
+        }
     }
 }

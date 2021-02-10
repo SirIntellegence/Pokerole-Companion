@@ -52,7 +52,7 @@ namespace PokeroleUI2.Controls
         public boxMovesDisplay()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             DataContext = this;
             InitializeComponent();
@@ -89,9 +89,16 @@ namespace PokeroleUI2.Controls
             OnPropertyChanged("ActiveBox");
         }
 
-        private void LearnGrid_TargetUpdated(object sender, DataTransferEventArgs e)
+        private void MovesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MoveData md = (MoveData)MovesGrid.SelectedItem;
+            dataManager.ActiveBoxMoveData = md;
+        }
 
+        private void LearnGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MoveData md = (MoveData)LearnGrid.SelectedItem;
+            dataManager.ActiveBoxMoveData = md;
         }
     }
 }

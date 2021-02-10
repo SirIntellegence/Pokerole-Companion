@@ -52,7 +52,7 @@ namespace PokeroleUI2.Controls
         public TrainerStatDisplay()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
             DataContext = this;
             InitializeComponent();
             dataManager.TrainerChanged += Trainer_PropertyChanged;
@@ -161,6 +161,15 @@ namespace PokeroleUI2.Controls
             UpdatePointsDisplay();
         }
 
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            dataManager.ActiveTrainer.displaycolor = (Color)TrainerColorPicker.SelectedColor;
+        }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainwindow.trainerSelector.DeleteTrainer(DeleteBox.Text);
+            DeleteBox.Text = "";
+        }
     }
 }

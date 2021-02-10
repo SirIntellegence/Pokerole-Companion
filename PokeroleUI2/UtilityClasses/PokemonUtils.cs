@@ -8,6 +8,8 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.IO;
+using System.Configuration;
 
 namespace PokeroleUI2
 {
@@ -18,19 +20,50 @@ namespace PokeroleUI2
         {
             c = FirstToUpper(c);
             string path = "pack://application:,,,/Graphics/Icons/Category_";
-            return new BitmapImage(new Uri(path + c + ".png"));
+            Uri uri = new Uri(path + c + ".png");
+            try
+            {
+                return new BitmapImage(uri);
+            }
+            catch
+            {
+            }
+            return null;
         }
 
-        public static void SetTypeColours(string t1, string t2 = "")
+        public static Brush GetCategoryColour(string t)
         {
-            Application.Current.Resources["Col_Type1"] = Application.Current.Resources["Col_" + t1];
-            if (string.IsNullOrEmpty(t2)) { t2 = t1; }
-            Application.Current.Resources["Col_Type2"] = Application.Current.Resources["Col_" + t2];
+            if (t == null) { return null; }
+            t = FirstToUpper(t);
+            string tag = "Col_Cat_" + t;
+            return (Brush)Application.Current.Resources[tag];
+        }
+
+
+        public static BitmapImage GetRankImage(int r)
+        {
+            return GetRankImage(RankFromInt(r));
+        }
+
+        public static BitmapImage GetRankImage(string r)
+        {
+            r = FirstToUpper(r);
+            string path = "pack://application:,,,/Graphics/Icons/Rank_";
+            Uri uri = new Uri(path + r + ".png");
+            try
+            {
+                return new BitmapImage(uri);
+            }
+            catch
+            {
+            }
+            return null;
         }
 
 
         public static Brush GetTypeColour(string t)
         {
+            if (t == null) { return null; }
             t = FirstToUpper(t);
             string tag = "Col_" + t;
             return (Brush)Application.Current.Resources["Col_" + t];
@@ -129,75 +162,18 @@ namespace PokeroleUI2
 
         public static BitmapImage GetPkmnImage(string filename)
         {
-            return new BitmapImage(new Uri("pack://application:,,,/Graphics/Sprites/FullRes/" + filename) );
-        }
-
-        public static float[] HSVToRGB(float[] color)
-        {
-            float[] rgb = new float[3];
-            float[] col = new float[] { color[0], color[1], color[2] };
-
-            if (col[1] == 0.0f)
+            string path = Path.GetFullPath(ConfigurationManager.AppSettings["SpriteDirectory"] + filename);
+            Uri uri = new Uri(path);
+            try
             {
-                rgb[0] = col[2];
-                rgb[1] = col[2];
-                rgb[1] = col[2];
+                return new BitmapImage(uri);
             }
-            else
+            catch
             {
-                float h = col[0] * 6.0f;
-
-                if (h == 6.0f)
-                {
-                    h = 0.0f;
-                }
-
-                int v_i = (int)h;
-                float v_1 = col[2] * (1.0f - col[1]);
-                float v_2 = col[2] * (1.0f - (col[1] * (h - v_1)));
-                float v_3 = col[2] * (1.0f - (col[1] * (1.0f - (h - v_i))));
-
-                if (v_i == 0)
-                {
-                    rgb[0] = col[2];
-                    rgb[1] = v_3;
-                    rgb[2] = v_1;
-                }
-                else if (v_i == 1)
-                {
-                    rgb[0] = v_2;
-                    rgb[1] = col[2];
-                    rgb[2] = v_1;
-                }
-                else if (v_i == 2)
-                {
-                    rgb[0] = v_2;
-                    rgb[1] = col[2];
-                    rgb[2] = v_3;
-                }
-                else if (v_i == 3)
-                {
-                    rgb[0] = v_1;
-                    rgb[1] = v_2;
-                    rgb[2] = col[2];
-                }
-                else if (v_i == 4)
-                {
-                    rgb[0] = v_3;
-                    rgb[1] = v_1;
-                    rgb[2] = col[2];
-                }
-                else
-                {
-                    rgb[0] = col[2];
-                    rgb[1] = v_1;
-                    rgb[2] = v_2;
-                }
             }
-
-            return new float[] { rgb[0], rgb[1], rgb[2]};
+            return null;
         }
-
+       
     }
 
 }

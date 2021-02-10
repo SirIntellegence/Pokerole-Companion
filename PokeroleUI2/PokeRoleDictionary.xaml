@@ -15,10 +15,12 @@
     </Style>
 
     <FontFamily x:Key="SquareFont">/fonts/Square.ttf #squarefont</FontFamily>
-    <FontFamily x:Key="Bliss">/fonts/Blissful Thinking.otf #blissfulthinking</FontFamily>
-    
-    
+    <FontFamily x:Key="Bliss">/fonts/Blissful-Thinking.ttf #blissfulthinking</FontFamily>
+    <FontFamily x:Key="Coolvetica">/fonts/coolvetica rg.ttf #coolvetica</FontFamily>
+
+
     <!--Colours-->
+    <SolidColorBrush x:Key="Col_" Color="#a6a59e" />
     <SolidColorBrush x:Key="Col_Fairy" Color="#e8add5" />
     <SolidColorBrush x:Key="Col_Electric" Color="#fcc962" />
     <SolidColorBrush x:Key="Col_Dark" Color="#6b5c65" />
@@ -54,6 +56,12 @@
     <SolidColorBrush x:Key="Col_AttributesBeauty" Color="#afc5df" />
     <SolidColorBrush x:Key="Col_AttributesCute" Color="#f7b2c5" />
     <SolidColorBrush x:Key="Col_AttributesClever" Color="#aed495" />
+
+    <SolidColorBrush x:Key="Col_Cat_" Color="#a6a59e" />
+    <SolidColorBrush x:Key="Col_Cat_Physical" Color="#f15f42" />
+    <SolidColorBrush x:Key="Col_Cat_Special" Color="#5276ae" />
+    <SolidColorBrush x:Key="Col_Cat_Support" Color="#a29d8e" />
+
 
 
 
@@ -145,7 +153,28 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="SelectableCell" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource StrippedCell}">
+        <Style.Triggers>
+            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                <Setter Property="BorderThickness" Value="3" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
+    <Style TargetType="{x:Type TabItem}" x:Key="SidewaysTabItem">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                        <ContentPresenter.LayoutTransform>
+                            <RotateTransform Angle="270" />
+                        </ContentPresenter.LayoutTransform>
+                    </ContentPresenter>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="3" />
+    </Style>
 
 
 

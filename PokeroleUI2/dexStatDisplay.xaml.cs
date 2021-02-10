@@ -48,7 +48,7 @@ namespace PokeroleUI2.Controls
         public dexStatDisplay()
         {
             mainwindow = (PokeroleUI2.MainWindow)Application.Current.MainWindow;
-            dataManager = mainwindow.dataManager;
+            dataManager = mainwindow.DataManager;
 
             DataContext = this;
             InitializeComponent();
@@ -60,7 +60,6 @@ namespace PokeroleUI2.Controls
         {
             dexData = dataManager.ActiveDex;
             Update(dexData);
-            mainwindow.SetColours();
         }
 
         public void Update(DexData dd)

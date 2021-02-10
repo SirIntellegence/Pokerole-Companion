@@ -6,22 +6,75 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="220">
+             d:DesignHeight="450" d:DesignWidth="220"
+             DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             FontFamily="Trebuchet MS"
+             >
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Searchbox-->
-        <TextBox Height ="25" Margin="2,2,2,2" Grid.Row="0"/>
+        <TextBox x:Name="FilterBox"  Height ="25" Margin="2,2,2,2" Grid.Row="0" TextChanged="TextBox_TextChanged"/>
         <!--SelectorPanel-->
-        <DataGrid Margin="0,0,0,0" x:Name="dexGrid" IsReadOnly="True" AlternatingRowBackground="AliceBlue" Grid.Row="1" SelectionChanged="DexGrid_SelectionChanged" AutoGenerateColumns="False">
+        
+        <DataGrid Margin="0,0,0,0" x:Name="dexGrid" Grid.Row="1" SelectionChanged="DexGrid_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="None"
+                  BorderBrush="{x:Null}" Background="{x:Null}" GridLinesVisibility="None"
+                      SelectionMode="Single" CellStyle="{StaticResource SelectableCell}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name ="columnID" Binding ="{Binding Path=DexID}" Header="#ID"/>
-                <DataGridTextColumn x:Name ="columnName" Binding ="{Binding Path=Name}" Header="Name"/>
-                <DataGridTextColumn x:Name ="columnType2" Binding ="{Binding Path=Type1}" Header="Type1"/>
-                <DataGridTextColumn x:Name ="columnType1" Binding ="{Binding Path=Type2}" Header="Type2"/>
-                <DataGridTextColumn x:Name ="columnRank" Binding ="{Binding Path=Rank}" Header="Rec.Rank"/>
+                <DataGridTemplateColumn Header="IDName" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush1}" CornerRadius="3">
+                                <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                    <WrapPanel >
+                                        <TextBlock HorizontalAlignment="Center" TextAlignment="Left" VerticalAlignment="Center" FontSize="14" Foreground="White" Background="{x:Null}" Text="{Binding Path=DexID}" Width="45"/>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="White" Background="{x:Null}" Text="{Binding Path=Name}"/>
+                                    </WrapPanel>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Type2" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush1}" CornerRadius="3">
+                                <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                    <Viewbox StretchDirection="DownOnly" MaxWidth="40">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Type1}" FontSize="14" Foreground="White" Background="{x:Null}"/>
+                                    </Viewbox>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Type2" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush2}" CornerRadius="3">
+                                <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                    <Viewbox StretchDirection="DownOnly" MaxWidth="40">
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Type2}" FontSize="14" Foreground="White" Background="{x:Null}"/>
+                                    </Viewbox>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Rank" Width="25">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=typebrush1}" CornerRadius="3" >
+                                <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                    <Image x:Name="ImageDisplay" Margin="0,0,0,0" Grid.Row="1" StretchDirection="DownOnly" Stretch="Uniform" Source="{Binding Path=RankImg}" Height="16"/>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

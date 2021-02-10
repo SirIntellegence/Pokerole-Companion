@@ -132,6 +132,7 @@ namespace PokeroleUI2
             }
         }
 
+        public string Notes { get; set; }
 
         public PokemonData()
         {
@@ -180,12 +181,13 @@ namespace PokeroleUI2
             Happiness = new PkmnStat("Happiness", 0, 5);
             Loyalty = new PkmnStat("Happiness", 0, 5);
 
-            Item = "Item";
-            Nature = "Nature";
+            Item = "";
+            Nature = "";
             Confidence = 0;
-            Status = "Status";
-            Accessory = "Accessory";
-            Ribbons = "Ribbons";
+            Status = "";
+            Accessory = "";
+            Ribbons = "";
+            Notes = "";
 
             HP = new PkmnSimpleStat(dd.BaseHP, dd.BaseHP, dd.BaseHP);
             Will = new PkmnSimpleStat(0, Attributes.GetStatByTag("Insight").Value + 2, Attributes.GetStatByTag("Insight").Value + 2);

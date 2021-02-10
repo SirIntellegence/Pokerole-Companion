@@ -6,7 +6,8 @@
         xmlns:uc="clr-namespace:PokeroleUI2.Controls"
         xmlns:local="clr-namespace:PokeroleUI2"
         mc:Ignorable="d"
-        Title="🎲 Pokerole Companion 🎲" Height="550" Width="1000">
+        Title="🎲 Pokerole Companion 🎲" Height="550" Width="1000"
+        FontFamily="Trebuchet MS">
     <Grid>
         <TabControl x:Name="mainTabControl" Margin="0,0,0,0">
             <TabItem x:Name="dexTab" Header="Pokédex">
@@ -64,13 +65,30 @@
             </TabItem>
             <!--//////////////////TRAINER CARD////////////////////-->
             <TabItem x:Name="trainerTab" Header="Trainer Card">
+                
                 <Grid Background="#FFFFFFFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    
                     <uc:TrainerSelector x:Name="trainerSelector"/>
-                    <uc:TrainerStatDisplay x:Name="trainerStatDisplay" Grid.Column="1"/>
+                    <TabControl Grid.Column="1" TabStripPlacement="Right" BorderThickness="0">
+                        <!--Rotate Tabs 90 degrees-->
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource SidewaysTabItem}"/>
+                        </TabControl.Resources>
+                        <TabItem Header="Trainer">
+                            <!--Trainer Card-->
+                            <uc:TrainerStatDisplay x:Name="trainerStatDisplay" Grid.Column="1"/>
+                        </TabItem>
+                        <TabItem Header="Bag">
+                            <uc:TrainerBackpack/>
+                        </TabItem>
+                        <TabItem Header="Notes">
+                            <uc:TrainerNotes/>
+                        </TabItem>
+                    </TabControl>
 
 
                 </Grid>
@@ -95,45 +113,22 @@
                     <TabControl Grid.Column="1" TabStripPlacement="Right" BorderThickness="0">
                         <!--Rotate Tabs 90 degrees-->
                         <TabControl.Resources>
-                            <Style TargetType="{x:Type TabItem}">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <ContentPresenter Content="{TemplateBinding Content}">
-                                                <ContentPresenter.LayoutTransform>
-                                                    <RotateTransform Angle="270" />
-                                                </ContentPresenter.LayoutTransform>
-                                            </ContentPresenter>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Padding" Value="3" />
-                            </Style>
+                            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource SidewaysTabItem}"/>
                         </TabControl.Resources>
                         <TabItem Header="Pokémon">
                             <uc:boxStatDisplay x:Name="boxStatDisplay"/>
-                            <!--Trainer Card-->
                         </TabItem>
                         <TabItem Header="Moves">
                             <uc:boxMovesDisplay x:Name="boxMovesDisplay"/>
-                            <!--Trainer Card-->
                         </TabItem>
                         <TabItem Header="Notes">
-                            <Grid Background="#FFFFFFFF"/>
-                            <!--Trainer Card-->
+                            <uc:BoxNotes/>
                         </TabItem>
                     </TabControl>
                     <uc:FooterMoveDisplay Grid.Column="1" Grid.Row="1" x:Name="BoxFooterMoveDisplay"/>
                     <uc:FooterAbilityDisplay Grid.Column="1" Grid.Row="1" x:Name="BoxFooterAbilityDisplay"/>
 
                 </Grid>
-            </TabItem>
-            <TabItem x:Name="bagTab" Header="Bag">
-                <Grid Background="#FFFFFFFF"/>
-                <!--Trainer Card-->
-            </TabItem>
-            <TabItem x:Name="notesTab" Header="Notes">
-                <Grid Background="#FFFFFFFF"/>
             </TabItem>
         </TabControl>
 

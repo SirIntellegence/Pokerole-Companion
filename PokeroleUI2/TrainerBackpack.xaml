@@ -1,0 +1,83 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeroleUI2"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PokeroleUI2.Controls.TrainerBackpack"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontFamily="Trebuchet MS"
+                 DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <local:VerticalContentBlock Tag="Main Pocket" Grid.Column="1" Grid.RowSpan="2" Margin="5">
+            <TextBox Margin="2,2,2,2" BorderBrush="{x:Null}" Text="{Binding backpackData.MainPocket, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        </local:VerticalContentBlock>
+
+        <local:VerticalContentBlock Tag="Small Pocket" Grid.Column="0" Grid.Row="1" Margin="5">
+            <TextBox Margin="2,2,2,2" BorderBrush="{x:Null}" Text="{Binding backpackData.SmallPocket, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        </local:VerticalContentBlock>
+        
+        <Border Margin="5" CornerRadius="5" Background="{StaticResource Col_LightBlack}">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <WrapPanel VerticalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" Text="Potion"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.Potions, Mode=TwoWay}"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Text="Uses Left"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}" TextWrapping="Wrap"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.PotionsUses, Mode=TwoWay}"/>
+                    </Border>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Center" Grid.Row="1">
+                    <TextBlock VerticalAlignment="Center" Text="Super Potion" TextWrapping="Wrap"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.SuperPotions, Mode=TwoWay}"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Text="Uses Left"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}" TextWrapping="Wrap"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.SuperPotionsUses, Mode=TwoWay}"/>
+                    </Border>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Center" Grid.Row="2">
+                    <TextBlock VerticalAlignment="Center" Text="Hyper Potion" TextWrapping="Wrap"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.HyperPotions, Mode=TwoWay}"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Text="Uses Left"  Foreground="White" FontSize="20" Width="60" TextAlignment="Right" FontFamily="{StaticResource Coolvetica}" TextWrapping="Wrap"/>
+                    <TextBlock VerticalAlignment="Center" Text=" x " FontSize="20" Foreground="White"/>
+                    <Border Background="White" Height="40"  Width="40" CornerRadius="5">
+                        <xctk:IntegerUpDown ShowButtonSpinner="False" Margin="5" Text="{Binding backpackData.HyperPotionsUses, Mode=TwoWay}"/>
+                    </Border>
+                </WrapPanel>
+            </Grid>
+        </Border>
+        <local:HorizontalContentBlock Tag="Badges" Margin="5,0,5,0" Grid.Row="2" Grid.ColumnSpan="2" Background="{StaticResource Col_LightBlack}">
+            <TextBox Margin="2,2,2,2" BorderBrush="{x:Null}" Text="{Binding backpackData.Badges, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        </local:HorizontalContentBlock>
+
+
+
+    </Grid>
+</UserControl>

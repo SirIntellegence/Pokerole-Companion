@@ -9,26 +9,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200"
              DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+             FontFamily="Trebuchet MS"
              >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="40"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <local:VerticalContentBlock Tag="Party" Background="Salmon">
-            <DataGrid x:Name="partygrid" Margin="0,0,0,0" IsReadOnly="True" Grid.Row="1"  SelectionChanged="BoxGrid_SelectionChanged" ItemsSource="{Binding Path=ActiveTrainer.Party, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="None"
-                  dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.DragHandler="{Binding}"
-                  CellStyle="{StaticResource StrippedCell}" BorderBrush="{x:Null}" Background="{x:Null}" GridLinesVisibility="None"
+            <DataGrid x:Name="partygrid" MinHeight="40" Margin="0,0,0,0" IsReadOnly="True" Grid.Row="1"  SelectionChanged="BoxGrid_SelectionChanged" ItemsSource="{Binding Path=ActiveTrainer.Party, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="None"
+                  dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropTargetAdornerBrush="{StaticResource Col_LightBlack}" dd:DragDrop.MinimumVerticalDragDistance="30"
+                  BorderBrush="{x:Null}" Background="{x:Null}" GridLinesVisibility="None"
                       SelectionMode="Single"
+                                            CellStyle="{StaticResource SelectableCell}"
+
                   >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Name" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0" Background="{Binding Path=DexData.typebrush1}" BorderBrush="{x:Null}" CornerRadius="3">
-                                    <Border BorderThickness="0" Background="#33ffffff" BorderBrush="{x:Null}" CornerRadius="3">
-                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name}" FontFamily="{StaticResource Bliss}" FontSize="14" Foreground="White"/>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=DexData.typebrush1}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name}" FontSize="14" Foreground="White" Background="{x:Null}"/>
                                     </Border>
                                 </Border>
                             </DataTemplate>
@@ -40,17 +43,18 @@
 
         <local:VerticalContentBlock Tag="Box" Grid.Row="2">
             <DataGrid x:Name="boxgrid" Margin="0,0,0,0" IsReadOnly="True" Grid.Row="1"  SelectionChanged="BoxGrid_SelectionChanged" ItemsSource="{Binding Path=ActiveTrainer.Box, Mode=TwoWay}"   AutoGenerateColumns="False" HeadersVisibility="None"
-                  dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.DragHandler="{Binding}"
-                  CellStyle="{StaticResource StrippedCell}" BorderBrush="{x:Null}" Background="{x:Null}"  GridLinesVisibility="None"
+                  dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.DropTargetAdornerBrush="Black" dd:DragDrop.MinimumVerticalDragDistance="30"
+                  BorderBrush="{x:Null}" Background="{x:Null}"  GridLinesVisibility="None"
                       SelectionMode="Single"
+                      CellStyle="{StaticResource SelectableCell}"
                   >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Name" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0" BorderBrush="{x:Null}" Background="{Binding Path=DexData.typebrush1}" CornerRadius="3">
-                                    <Border BorderThickness="0" Background="#33ffffff" BorderBrush="{x:Null}" CornerRadius="3">
-                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name}" FontFamily="{StaticResource Bliss}" FontSize="14" Foreground="White"/>
+                                <Border BorderBrush="White" BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridCell}}, Path=BorderThickness}" Background="{Binding Path=DexData.typebrush1}" CornerRadius="3">
+                                    <Border BorderThickness="0" Background="#33ffffff" CornerRadius="3">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Name}" FontSize="14" Foreground="White" Background="{x:Null}"/>
                                     </Border>
                                 </Border>
                             </DataTemplate>
