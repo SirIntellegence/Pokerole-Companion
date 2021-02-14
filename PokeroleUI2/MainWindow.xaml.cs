@@ -65,9 +65,9 @@ namespace PokeroleUI2
 
         private void Catch_Click(object sender, RoutedEventArgs e)
         {
-            if(DataManager.ActiveTrainer != null && DataManager.ActiveDex != null)
+            if((DataManager.ActiveTrainer != null) && (DataManager.ActiveDex != null))
             {
-                DataManager.ActiveTrainer.AddPokemon(dexStatDisplay.dexData);
+                DataManager.ActiveTrainer.AddPokemon(DataManager.ActiveDex);
             }
         }
 

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PokeroleUI2"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Trebuchet MS">
     <Grid>
         <Grid.OpacityMask>
             <VisualBrush Visual="{Binding ElementName=Border1}"/>
@@ -27,7 +27,7 @@
         <Rectangle Fill="{StaticResource Col_AbilityRed}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
         <TextBlock x:Name="textName" Margin="20,0,0,0" Text="{Binding Path=abilityData.Name, Mode=OneWay}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontFamily="{StaticResource Bliss}" FontSize="22" Foreground="White"/>
         <!--Effect Display-->
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" TextAlignment="Left" Margin="20,5,0,5" FontFamily="{StaticResource Bliss}" Foreground="White" TextWrapping="Wrap" Text="{Binding Path=abilityData.Description, Mode=OneWay}">
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" TextAlignment="Left" Margin="20,5,0,5" Foreground="White" TextWrapping="Wrap" Text="{Binding Path=abilityData.Description, Mode=OneWay}">
         </TextBlock>
 
         <!--Future Desc display-->

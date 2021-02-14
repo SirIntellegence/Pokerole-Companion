@@ -239,8 +239,8 @@ namespace PokeroleUI2
                     }
                 }
             }
-            //return null;
-            throw new Exception("No abilitydata found at name: " + name);
+            return null;
+            //throw new Exception("No abilitydata found at name: " + name);
         }
     }
 }

@@ -42,7 +42,11 @@ namespace PokeroleUI2.Controls
             abilities = new List<AbilityData>();
             foreach(string s in dd.Abilities)
             {
-                abilities.Add(DataSerializer.LoadAbilityData(s));
+                AbilityData a = DataSerializer.LoadAbilityData(s);
+                if (a != null)
+                {
+                    abilities.Add(a);
+                }
             }
             Update();
         }
