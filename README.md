@@ -8,7 +8,7 @@ I am not a programmer by trade. I built this because I wanted to. It's probably 
 
 # Download link
 
-You can download a compiled version here: https://drive.google.com/file/d/1EAc8Jxr1_e-l6QvWhsP_bvPLVZAg3TN_/view?usp=sharing
+You can download a compiled version here: https://drive.google.com/drive/folders/1nLuCfPa1j8SHVwnTD0c50szrWyaKWbGL?usp=sharing
 To run, open "Pokerole Companion\bin\PokeroleUI2.exe". Or create a shortcut to it.
 
 ## Updating from an earlier version
